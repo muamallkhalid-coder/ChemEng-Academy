@@ -1,0 +1,68 @@
+{
+  "topic_en": "Density & Specific Gravity",
+  "topic_ar": "الكثافة والوزن النوعي",
+  "subject_folder": "Principles_of_Chemical_Engineering",
+  "description_ar": "أسئلة شاملة ومسائل حسابية حول الكثافة، الوزن النوعي، والكثافة النوعية للخلائط",
+  "questions": [
+    {
+      "id": 1,
+      "question_en": "If the specific gravity (SG) of a liquid hydrocarbon is 0.82 at 20°C (where the reference density of water is 1000 kg/m³), what is the mass of 2.5 m³ of this liquid?",
+      "question_ar": "إذا كان الوزن النوعي (SG) لسائل هيدروكربوني هو 0.82 عند درجة حرارة 20°C (حيث الكثافة المرجعية للماء هي 1000 كغم/م³)، فما هي كتلة 2.5 م³ من هذا السائل؟",
+      "options": [
+        "2050 kg",
+        "820 kg",
+        "3048.7 kg",
+        "1820 kg"
+      ],
+      "correct_index": 0,
+      "explanation_en": "Specific Gravity (SG) = ρ_substance / ρ_ref. Thus, ρ = 0.82 × 1000 = 820 kg/m³. Mass m = ρ × V = 820 kg/m³ × 2.5 m³ = 2050 kg.",
+      "explanation_ar": "الوزن النوعي يساوي كثافة المادة مقسومة على كثافة الماء المرجعية، لذا فإن كثافة السائل = 0.82 × 1000 = 820 كغم/م³. الكتلة تساوي الكثافة في الحجم: 820 × 2.5 = 2050 كغم.",
+      "requires_scratchpad": true
+    },
+    {
+      "id": 2,
+      "question_en": "Which of the following properties is dimensionless?",
+      "question_ar": "أي من الخواص التالية تعتبر كمية خالية من الوحدات (لابعادية)؟",
+      "options": [
+        "Specific Volume",
+        "Specific Gravity",
+        "Molar Density",
+        "Bulk Density"
+      ],
+      "correct_index": 1,
+      "explanation_en": "Specific gravity is the ratio of the density of a substance to the density of a reference substance (usually water), making it a dimensionless ratio.",
+      "explanation_ar": "الوزن النوعي (Specific Gravity) هو نسبة كثافة المادة إلى كثافة مادة مرجعية بنفس الوحدات، ولذلك تختصر الوحدات ويكون بدون وحدات.",
+      "requires_scratchpad": false
+    },
+    {
+      "id": 3,
+      "question_en": "On the API gravity scale used for petroleum products, pure water at 60°F (SG = 1.0) has an API gravity equal to:",
+      "question_ar": "على مقياس معهد البترول الأمريكي (API) المستخدم للمنتجات النفطية، فإن الماء النقي عند 60°F (وزنه النوعي = 1.0) يمتلك درجة API تساوي:",
+      "options": [
+        "0 °API",
+        "10 °API",
+        "141.5 °API",
+        "100 °API"
+      ],
+      "correct_index": 1,
+      "explanation_en": "The formula is °API = (141.5 / SG) - 131.5. Substituting SG = 1.0 gives °API = 141.5 - 131.5 = 10 °API.",
+      "explanation_ar": "حسب قانون API = (141.5 / SG) - 131.5، عند تعويض الوزن النوعي للماء 1.0 نحصل على: 141.5 - 131.5 = 10 درجات API.",
+      "requires_scratchpad": true
+    },
+    {
+      "id": 4,
+      "question_en": "Two miscible liquids A (ρ = 800 kg/m³, V = 0.4 m³) and B (ρ = 1200 kg/m³, V = 0.6 m³) are mixed assuming ideal volume additivity. What is the density of the mixture?",
+      "question_ar": "تم خلط سائلين قابلين للامتزاج A (كثافته 800 كغم/م³ وحجمه 0.4 م³) و B (كثافته 1200 كغم/م³ وحجمه 0.6 م³) بافتراض جمع الحجوم المثالي. ما هي كثافة الخليط الناتج؟",
+      "options": [
+        "1000 kg/m³",
+        "1040 kg/m³",
+        "960 kg/m³",
+        "1100 kg/m³"
+      ],
+      "correct_index": 1,
+      "explanation_en": "Total mass = m_A + m_B = (800 × 0.4) + (1200 × 0.6) = 320 + 720 = 1040 kg. Total volume = 0.4 + 0.6 = 1.0 m³. Mixture density = 1040 / 1.0 = 1040 kg/m³.",
+      "explanation_ar": "الكتلة الكلية = كتلة A + كتلة B = (800 × 0.4) + (1200 × 0.6) = 320 + 720 = 1040 كغم. الحجم الكلي = 0.4 + 0.6 = 1.0 م³. كثافة الخليط = 1040 / 1.0 = 1040 كغم/م³.",
+      "requires_scratchpad": true
+    }
+  ]
+}

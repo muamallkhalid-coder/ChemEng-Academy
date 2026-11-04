@@ -1,0 +1,2095 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChemEng Apple Academy — منصة اختبارات الهندسة الكيمياوية</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <!-- Google Fonts: Tajawal (Bold Arabic) & Inter (Apple SF Pro style English) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tajawal:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            arabic: ['Tajawal', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            english: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'sans-serif'],
+          },
+          colors: {
+            apple: {
+              bg: '#f5f5f7',
+              darkBg: '#000000',
+              card: '#ffffff',
+              darkCard: '#1c1c1e',
+              text: '#1d1d1f',
+              darkText: '#f5f5f7',
+              subtext: '#86868b',
+              blue: '#0071e3',
+              blueHover: '#0077ed',
+              green: '#34c759',
+              red: '#ff3b30',
+              orange: '#ff9500',
+              border: '#d2d2d7'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f5f5f7;
+      color: #1d1d1f;
+      overflow-x: hidden;
+      transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    html.dark body {
+      background-color: #000000;
+      color: #f5f5f7;
+    }
+    .font-en {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+    }
+    /* Apple Frosted Glass Navigation */
+    .apple-glass {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+    }
+    html.dark .apple-glass {
+      background: rgba(28, 28, 30, 0.78);
+    }
+    /* Apple Bento Card & Smooth Spring Transitions */
+    .apple-card {
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.38s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+    }
+    html.dark .apple-card {
+      background: #1c1c1e;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .apple-card-hover:hover {
+      transform: translateY(-4px) scale(1.008);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+    html.dark .apple-card-hover:hover {
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+    /* View transition animation */
+    .view-enter {
+      animation: appleFadeSlide 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes appleFadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.992);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    /* Option Button States */
+    .option-btn {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .option-btn:hover:not(:disabled) {
+      transform: scale(1.006);
+      border-color: #0071e3;
+    }
+    .option-correct {
+      background-color: rgba(52, 199, 89, 0.12) !important;
+      border-color: #34c759 !important;
+      color: #166534 !important;
+    }
+    html.dark .option-correct {
+      background-color: rgba(48, 209, 88, 0.18) !important;
+      border-color: #30d158 !important;
+      color: #86efac !important;
+    }
+    .option-wrong {
+      background-color: rgba(255, 59, 48, 0.12) !important;
+      border-color: #ff3b30 !important;
+      color: #991b1b !important;
+    }
+    html.dark .option-wrong {
+      background-color: rgba(255, 69, 58, 0.18) !important;
+      border-color: #ff453a !important;
+      color: #fca5a5 !important;
+    }
+    /* Drawing Canvas Background Patterns */
+    .canvas-grid {
+      background-color: #ffffff;
+      background-image: 
+        linear-gradient(to right, rgba(0, 113, 227, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 113, 227, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    html.dark .canvas-grid {
+      background-color: #141416;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .canvas-lined {
+      background-color: #ffffff;
+      background-image: linear-gradient(to bottom, transparent 27px, rgba(0, 113, 227, 0.12) 28px);
+      background-size: 100% 28px;
+    }
+    html.dark .canvas-lined {
+      background-color: #141416;
+      background-image: linear-gradient(to bottom, transparent 27px, rgba(255, 255, 255, 0.08) 28px);
+      background-size: 100% 28px;
+    }
+    .canvas-plain {
+      background-color: #ffffff;
+    }
+    html.dark .canvas-plain {
+      background-color: #141416;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(134, 134, 139, 0.35);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(134, 134, 139, 0.6);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-apple-blue selection:text-white">
+
+  <!-- Top Apple Sticky Glass Navbar -->
+  <header class="sticky top-0 z-40 apple-glass border-b border-black/5 dark:border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center gap-3">
+        <button id="navHomeLogoBtn" type="button" class="flex items-center gap-3 text-right group focus:outline-none">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-apple-blue to-blue-700 flex items-center justify-center text-white shadow-md shadow-apple-blue/25 group-hover:scale-105 transition-transform">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-extrabold text-lg tracking-tight text-apple-text dark:text-apple-darkText">الهندسة الكيمياوية</span>
+              <span class="font-en text-xs font-semibold px-2 py-0.5 rounded-full bg-black/5 dark:bg-white/10 text-apple-subtext">Apple Edition</span>
+            </div>
+            <p class="text-xs font-bold text-apple-subtext hidden sm:block">منصة الاختبارات التفاعلية الذكية — MCQ Hub</p>
+          </div>
+        </button>
+      </div>
+
+      <!-- Navigation Pills -->
+      <nav class="flex items-center gap-1.5 sm:gap-2">
+        <button id="navSubjectsBtn" type="button" class="px-3.5 py-2 rounded-full text-sm font-extrabold transition-all bg-apple-blue text-white shadow-sm">
+          المواد الدراسية
+        </button>
+        <button id="navResultsBtn" type="button" class="px-3.5 py-2 rounded-full text-sm font-extrabold transition-all text-apple-text dark:text-apple-darkText hover:bg-black/5 dark:hover:bg-white/10 flex items-center gap-1.5">
+          <span>سجل النتائج</span>
+          <span id="savedResultsCountBadge" class="font-en text-xs px-1.5 py-0.5 rounded-full bg-apple-green/15 text-apple-green font-bold">0</span>
+        </button>
+        <button id="navTemplateBtn" type="button" class="px-3.5 py-2 rounded-full text-sm font-extrabold transition-all text-apple-text dark:text-apple-darkText hover:bg-black/5 dark:hover:bg-white/10 flex items-center gap-1.5">
+          <span class="hidden md:inline">نموذج JSON والبرومبت</span>
+          <span class="md:hidden font-en">JSON</span>
+        </button>
+        <button id="navGithubBtn" type="button" title="إعدادات الربط مع GitHub" class="p-2 rounded-full text-apple-text dark:text-apple-darkText hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+          </svg>
+        </button>
+        <button id="themeToggleBtn" type="button" title="تبديل المظهر الفاتح/الداكن" class="p-2 rounded-full text-apple-text dark:text-apple-darkText hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+          <svg id="themeSunIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+          </svg>
+          <svg id="themeMoonIcon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Toast Notification -->
+  <div id="toastContainer" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 opacity-0 translate-y-4">
+    <div id="toastMessage" class="px-5 py-3 rounded-full apple-glass shadow-xl border border-black/10 dark:border-white/15 font-extrabold text-sm flex items-center gap-2.5">
+      <span id="toastDot" class="w-2.5 h-2.5 rounded-full bg-apple-green"></span>
+      <span id="toastText">تمت العملية بنجاح</span>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- ==================== VIEW 1: HOME (8 SUBJECTS GRID) ==================== -->
+    <section id="viewHome" class="view-enter space-y-8">
+      <!-- Hero Banner in Apple Keynote Style -->
+      <div class="apple-card p-7 sm:p-10 relative overflow-hidden">
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div class="space-y-3 max-w-2xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-apple-blue/10 text-apple-blue text-xs font-extrabold">
+              <span class="w-2 h-2 rounded-full bg-apple-blue animate-pulse"></span>
+              <span>CHEMICAL ENGINEERING EXAMINATION SUITE</span>
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+              اختبارات الهندسة الكيمياوية.<br/>
+              <span class="bg-gradient-to-l from-apple-blue via-blue-600 to-teal-500 bg-clip-text text-transparent">بدقة وأناقة تصميم Apple.</span>
+            </h1>
+            <p class="text-apple-subtext font-bold text-base sm:text-lg leading-relaxed">
+              اختر المادة الدراسية لاستعراض بطاقات المواضيع أو رفع ملفات الأسئلة <span class="font-en font-semibold text-apple-text dark:text-apple-darkText">(.json)</span> مباشرة. تتضمن المنصة سبورة حل تفاعلية بالقلم للمسائل الحسابية، مؤقتاً اختيارياً، ونظام حفظ درجات من 100 لكل مادة.
+            </p>
+          </div>
+          <!-- Quick Overall Stats Pill Box -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 shrink-0">
+            <div class="p-4 rounded-2xl bg-apple-bg dark:bg-white/5 text-center">
+              <p class="text-xs font-extrabold text-apple-subtext">المواد الدراسية</p>
+              <p class="font-en text-2xl sm:text-3xl font-extrabold text-apple-text dark:text-apple-darkText mt-1">8</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-apple-bg dark:bg-white/5 text-center">
+              <p class="text-xs font-extrabold text-apple-subtext">المواضيع المتاحة</p>
+              <p id="statTotalTopics" class="font-en text-2xl sm:text-3xl font-extrabold text-apple-blue mt-1">9</p>
+            </div>
+            <div class="col-span-2 sm:col-span-1 p-4 rounded-2xl bg-apple-bg dark:bg-white/5 text-center">
+              <p class="text-xs font-extrabold text-apple-subtext">المعدل التراكمي المحفوظ</p>
+              <p id="statOverallAvg" class="font-en text-2xl sm:text-3xl font-extrabold text-apple-green mt-1">—</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-black tracking-tight">المواد الدراسية المعتمدة</h2>
+          <p class="text-sm font-bold text-apple-subtext">اضغط على بطاقة المادة لفتح المواضيع، استعراض النتائج، أو رفع ملف أسئلة JSON جديد</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <label for="quickGlobalJsonUpload" class="cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white dark:bg-apple-darkCard border border-black/10 dark:border-white/15 text-sm font-extrabold hover:border-apple-blue transition-all shadow-sm">
+            <svg class="w-4 h-4 text-apple-blue" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+            </svg>
+            <span>رفع ملف أسئلة JSON سريع</span>
+          </label>
+          <input id="quickGlobalJsonUpload" type="file" accept=".json" multiple class="hidden" />
+        </div>
+      </div>
+
+      <!-- 8 Subjects Bento Grid -->
+      <div id="subjectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- Dynamically rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 2: SUBJECT TOPICS & SAVED RESULTS ==================== -->
+    <section id="viewSubject" class="hidden view-enter space-y-7">
+      <!-- Top Breadcrumb & Back Button -->
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <button id="backToHomeBtn" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-full apple-card hover:bg-black/5 dark:hover:bg-white/10 text-sm font-extrabold transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+          <span>العودة إلى جميع المواد</span>
+        </button>
+
+        <div class="flex items-center gap-2">
+          <label for="subjectJsonUploadInput" class="cursor-pointer inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-apple-blue hover:bg-apple-blueHover text-white text-sm font-extrabold shadow-md shadow-apple-blue/20 transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            <span>رفع ملف موضوع جديد (.json)</span>
+          </label>
+          <input id="subjectJsonUploadInput" type="file" accept=".json" multiple class="hidden" />
+        </div>
+      </div>
+
+      <!-- Subject Hero Banner with Overall Grade out of 100 -->
+      <div class="apple-card p-6 sm:p-8">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div class="space-y-2">
+            <div class="flex items-center gap-2.5">
+              <span id="subjectFolderBadge" class="font-en text-xs font-bold px-3 py-1 rounded-full bg-black/5 dark:bg-white/10 text-apple-subtext">Folder/</span>
+              <span id="subjectTopicsCountBadge" class="text-xs font-extrabold px-3 py-1 rounded-full bg-apple-blue/10 text-apple-blue">0 مواضيع</span>
+            </div>
+            <h1 id="subjectTitleAr" class="text-2xl sm:text-4xl font-black tracking-tight">اسم المادة</h1>
+            <p id="subjectTitleEn" class="font-en text-base sm:text-lg font-semibold text-apple-subtext">Subject Name</p>
+            <p id="subjectDescAr" class="text-sm font-bold text-apple-subtext pt-1"></p>
+          </div>
+
+          <!-- Subject Overall Score Card (out of 100) -->
+          <div class="flex items-center gap-5 p-5 rounded-3xl bg-apple-bg dark:bg-white/5 border border-black/5 dark:border-white/10 shrink-0">
+            <div class="space-y-1">
+              <p class="text-xs font-extrabold text-apple-subtext">درجة المادة الإجمالية (من 100)</p>
+              <div class="flex items-baseline gap-1">
+                <span id="subjectGrade100" class="font-en text-4xl font-black text-apple-green">—</span>
+                <span class="font-en text-sm font-bold text-apple-subtext">/ 100</span>
+              </div>
+              <p id="subjectPointsSummary" class="text-xs font-bold text-apple-subtext">مجموع النقاط المحفوظة: 0 / 0</p>
+            </div>
+            <div class="w-14 h-14 rounded-2xl bg-apple-green/15 text-apple-green flex items-center justify-center">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Topics Cards Grid -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-black">بطاقات المواضيع (Topics)</h2>
+          <span class="text-xs font-bold text-apple-subtext">اضغط على أي موضوع لبدء الاختبار التفاعلي</span>
+        </div>
+        <div id="topicsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Saved Results Breakdown for this Subject -->
+      <div class="apple-card p-6 sm:p-7 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h3 class="text-lg font-black">سجل الدرجات المحفوظة في هذه المادة</h3>
+            <p class="text-xs font-bold text-apple-subtext">تُحسب درجة المادة من 100 بناءً على مجموع النقاط التي حصلت عليها مقسوماً على إجمالي أسئلة المواضيع المحفوظة</p>
+          </div>
+          <button id="clearSubjectResultsBtn" type="button" class="text-xs font-extrabold text-apple-red hover:underline px-3 py-1.5 rounded-full bg-apple-red/10">
+            مسح سجل هذه المادة
+          </button>
+        </div>
+        <div id="subjectSavedResultsList" class="divide-y divide-black/5 dark:divide-white/10">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 3: INTERACTIVE QUIZ & SCRATCHPAD ==================== -->
+    <section id="viewQuiz" class="hidden view-enter space-y-6">
+      <!-- Quiz Top Control Bar (Back, Topic Title, Optional Timer & Score Pill) -->
+      <div class="apple-card p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <button id="exitQuizBtn" type="button" class="p-2.5 rounded-full bg-apple-bg dark:bg-white/10 hover:bg-black/10 transition-colors" title="العودة للمادة">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </button>
+          <div>
+            <div class="flex items-center gap-2">
+              <span id="quizSubjectBadge" class="text-xs font-extrabold text-apple-blue">المادة</span>
+              <span class="text-apple-subtext">•</span>
+              <span id="quizTopicEnBadge" class="font-en text-xs font-semibold text-apple-subtext">Topic</span>
+            </div>
+            <h2 id="quizTopicArTitle" class="text-lg sm:text-xl font-black">اسم الموضوع</h2>
+          </div>
+        </div>
+
+        <!-- Timer Control & Live Score -->
+        <div class="flex flex-wrap items-center gap-3">
+          <!-- Timer Toggle / Countdown Widget -->
+          <div class="flex items-center gap-2 bg-apple-bg dark:bg-white/5 px-3.5 py-2 rounded-2xl border border-black/5 dark:border-white/10">
+            <button id="toggleTimerModeBtn" type="button" class="text-xs font-extrabold px-3 py-1.5 rounded-xl bg-white dark:bg-apple-darkCard shadow-sm hover:border-apple-blue transition-all flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-apple-blue" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span id="timerToggleBtnLabel">تفعيل الوقت</span>
+            </button>
+
+            <!-- Custom Minutes Input (shown when timer is enabled) -->
+            <div id="timerConfigBox" class="hidden flex items-center gap-1.5">
+              <input id="timerMinutesInput" type="number" min="1" max="180" value="10" class="font-en w-14 px-2 py-1 text-center text-xs font-bold rounded-lg bg-white dark:bg-black border border-black/15 dark:border-white/20" />
+              <span class="text-xs font-bold text-apple-subtext">دقيقة</span>
+              <button id="startCustomTimerBtn" type="button" class="text-xs font-extrabold px-2.5 py-1 rounded-lg bg-apple-blue text-white">بدء</button>
+            </div>
+
+            <!-- Active Countdown Pill (Green -> Orange -> Red) -->
+            <div id="activeTimerDisplayBox" class="hidden flex items-center gap-2 px-3 py-1 rounded-xl bg-apple-green/15 text-apple-green font-en font-extrabold text-sm transition-colors">
+              <span id="timerDotIndicator" class="w-2 h-2 rounded-full bg-apple-green animate-ping"></span>
+              <span id="timerClockText">10:00</span>
+            </div>
+          </div>
+
+          <!-- Live Points Counter -->
+          <div class="px-4 py-2 rounded-2xl bg-apple-blue/10 text-apple-blue font-extrabold text-sm flex items-center gap-2">
+            <span>النقاط:</span>
+            <span id="quizLiveScoreText" class="font-en font-black">0 / 0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question Number Pills Bar (Quick Jump) -->
+      <div id="questionNumberPills" class="flex items-center gap-2 overflow-x-auto py-1 px-1">
+        <!-- Dynamically populated -->
+      </div>
+
+      <!-- Main Question Card -->
+      <div id="questionMainCard" class="apple-card p-6 sm:p-9 space-y-7">
+        <!-- Question Header Row -->
+        <div class="flex items-center justify-between gap-2 border-b border-black/5 dark:border-white/10 pb-4">
+          <div class="flex items-center gap-2.5">
+            <span id="currentQuestionNumBadge" class="font-en px-3.5 py-1.5 rounded-full bg-apple-blue text-white font-extrabold text-sm">
+              Question 1 of 4
+            </span>
+            <span id="problemBadge" class="hidden px-3 py-1 rounded-full bg-apple-orange/15 text-apple-orange text-xs font-extrabold">
+              مسألة حسابية • السبورة التفاعلية مفعلة بالأسفل
+            </span>
+          </div>
+          <span id="questionPointTag" class="text-xs font-extrabold text-apple-subtext">نقطة واحدة (1 Point)</span>
+        </div>
+
+        <!-- Question Text: English Top, Arabic Translation Below -->
+        <div class="space-y-4">
+          <div dir="ltr" class="font-en text-left text-lg sm:text-2xl font-bold leading-relaxed text-apple-text dark:text-apple-darkText tracking-tight">
+            <p id="questionTextEn">Question in English?</p>
+          </div>
+          <div dir="rtl" class="p-4 rounded-2xl bg-apple-bg/80 dark:bg-white/5 border-r-4 border-apple-blue text-right">
+            <p class="text-xs font-extrabold text-apple-blue mb-1">ترجمة السؤال:</p>
+            <p id="questionTextAr" class="text-base sm:text-lg font-extrabold leading-relaxed text-apple-text dark:text-apple-darkText">
+              ترجمة السؤال باللغة العربية
+            </p>
+          </div>
+        </div>
+
+        <!-- 4 Options List (English Only as requested) -->
+        <div id="optionsContainer" dir="ltr" class="grid grid-cols-1 gap-3.5 text-left font-en">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Explanation Box (Shown Immediately After Selecting an Option) -->
+        <div id="explanationBox" class="hidden rounded-3xl p-5 sm:p-6 border transition-all space-y-3">
+          <div class="flex items-center gap-2.5">
+            <div id="explanationStatusIcon" class="w-7 h-7 rounded-full flex items-center justify-center text-white font-bold text-sm">✓</div>
+            <h4 id="explanationStatusTitle" class="font-black text-base sm:text-lg">إجابة صحيحة! (+1 نقطة)</h4>
+          </div>
+          <div dir="ltr" class="font-en text-left text-sm sm:text-base font-medium leading-relaxed pt-1">
+            <p id="explanationTextEn"></p>
+          </div>
+          <div dir="rtl" class="text-right text-sm sm:text-base font-bold leading-relaxed pt-2 border-t border-black/10 dark:border-white/10">
+            <span class="text-xs font-extrabold block mb-1 opacity-75">ترجمة الشرح والتوضيح:</span>
+            <p id="explanationTextAr"></p>
+          </div>
+        </div>
+
+        <!-- Forward / Backward Navigation Controls -->
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-black/5 dark:border-white/10">
+          <button id="prevQuestionBtn" type="button" class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-apple-bg dark:bg-white/10 hover:bg-black/10 font-extrabold text-sm transition-all disabled:opacity-40 disabled:pointer-events-none">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+            <span>السؤال السابق</span>
+          </button>
+
+          <div class="flex items-center gap-3">
+            <button id="toggleScratchpadManualBtn" type="button" class="inline-flex items-center gap-2 px-4 py-3 rounded-full border border-black/15 dark:border-white/20 text-xs sm:text-sm font-extrabold hover:border-apple-blue transition-all">
+              <svg class="w-4 h-4 text-apple-blue" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+              </svg>
+              <span id="toggleScratchpadBtnText">إظهار/إخفاء مسودة الحل بالقلم</span>
+            </button>
+
+            <button id="nextQuestionBtn" type="button" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-apple-blue hover:bg-apple-blueHover text-white font-extrabold text-sm shadow-md shadow-apple-blue/25 transition-all">
+              <span id="nextQuestionBtnLabel">السؤال التالي</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+              </svg>
+            </button>
+
+            <button id="finishQuizSummaryBtn" type="button" class="hidden inline-flex items-center gap-2 px-6 py-3 rounded-full bg-apple-green hover: opacity-95 text-white font-extrabold text-sm shadow-md shadow-apple-green/30 transition-all">
+              <span>إنهاء وعرض النتيجة</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== APPLE PENCIL / FREEFORM INTERACTIVE SCRATCHPAD ==================== -->
+      <div id="scratchpadSection" class="apple-card p-5 sm:p-7 space-y-4 border-2 border-apple-blue/20">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-apple-blue/10 text-apple-blue flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-base sm:text-lg font-black">مسودة الحل الرقمية التفاعلية (Apple Freeform Scratchpad)</h3>
+              <p class="text-xs font-bold text-apple-subtext">بيئة داخلية مخصصة لحل المسائل الهندسية بالقلم أو الماوس أو اللمس مع حفظ رسمك لكل سؤال</p>
+            </div>
+          </div>
+
+          <!-- Pen Type, Colors, Stroke Width, Eraser, Grid Style, Undo/Clear -->
+          <div class="flex flex-wrap items-center gap-2 bg-apple-bg dark:bg-white/5 p-2 rounded-2xl border border-black/5 dark:border-white/10">
+            <!-- Pen Tools -->
+            <button type="button" data-tool="pen" class="scratch-tool-btn px-3 py-1.5 rounded-xl text-xs font-extrabold bg-apple-blue text-white transition-all">
+              قلم حبر جاف
+            </button>
+            <button type="button" data-tool="fountain" class="scratch-tool-btn px-3 py-1.5 rounded-xl text-xs font-extrabold hover:bg-black/5 dark:hover:bg-white/10 transition-all">
+              قلم عريض
+            </button>
+            <button type="button" data-tool="highlighter" class="scratch-tool-btn px-3 py-1.5 rounded-xl text-xs font-extrabold hover:bg-black/5 dark:hover:bg-white/10 transition-all">
+              قلم تظليل
+            </button>
+            <button type="button" data-tool="eraser" class="scratch-tool-btn px-3 py-1.5 rounded-xl text-xs font-extrabold hover:bg-black/5 dark:hover:bg-white/10 transition-all flex items-center gap-1">
+              <span>ممحاة</span>
+            </button>
+
+            <span class="h-5 w-px bg-black/10 dark:bg-white/15 mx-1"></span>
+
+            <!-- Color Swatches -->
+            <div class="flex items-center gap-1.5 px-1">
+              <button type="button" data-color="#1d1d1f" class="scratch-color-btn w-6 h-6 rounded-full bg-[#1d1d1f] border-2 border-white shadow ring-2 ring-apple-blue" title="أسود"></button>
+              <button type="button" data-color="#0071e3" class="scratch-color-btn w-6 h-6 rounded-full bg-[#0071e3] border-2 border-white shadow" title="أزرق أبل"></button>
+              <button type="button" data-color="#ff3b30" class="scratch-color-btn w-6 h-6 rounded-full bg-[#ff3b30] border-2 border-white shadow" title="أحمر"></button>
+              <button type="button" data-color="#34c759" class="scratch-color-btn w-6 h-6 rounded-full bg-[#34c759] border-2 border-white shadow" title="أخضر"></button>
+              <button type="button" data-color="#ff9500" class="scratch-color-btn w-6 h-6 rounded-full bg-[#ff9500] border-2 border-white shadow" title="برتقالي"></button>
+            </div>
+
+            <span class="h-5 w-px bg-black/10 dark:bg-white/15 mx-1"></span>
+
+            <!-- Line Width Slider -->
+            <div class="flex items-center gap-2 px-2">
+              <span class="text-xs font-bold text-apple-subtext">السمك:</span>
+              <input id="scratchLineWidth" type="range" min="1" max="24" value="3" class="w-20 accent-apple-blue cursor-pointer" />
+              <span id="scratchLineWidthVal" class="font-en text-xs font-bold w-6">3px</span>
+            </div>
+
+            <span class="h-5 w-px bg-black/10 dark:bg-white/15 mx-1"></span>
+
+            <!-- Background Pattern Selector -->
+            <select id="scratchBgSelect" class="text-xs font-extrabold px-2.5 py-1.5 rounded-xl bg-white dark:bg-apple-darkCard border border-black/10 dark:border-white/15">
+              <option value="grid">ورق بياني هندسي</option>
+              <option value="lined">ورق مسطر</option>
+              <option value="plain">ورق أبيض نقي</option>
+            </select>
+
+            <!-- Undo & Clear -->
+            <button id="scratchUndoBtn" type="button" class="px-3 py-1.5 rounded-xl text-xs font-extrabold bg-white dark:bg-apple-darkCard border border-black/10 dark:border-white/15 hover:border-apple-blue">
+              تراجع
+            </button>
+            <button id="scratchClearBtn" type="button" class="px-3 py-1.5 rounded-xl text-xs font-extrabold bg-apple-red/10 text-apple-red hover:bg-apple-red/20">
+              مسح الكل
+            </button>
+          </div>
+        </div>
+
+        <!-- Large Separated Bottom Drawing Canvas Box -->
+        <div id="scratchCanvasWrapper" class="relative w-full h-[380px] sm:h-[440px] rounded-2xl overflow-hidden border border-black/15 dark:border-white/15 shadow-inner canvas-grid">
+          <canvas id="scratchCanvas" class="w-full h-full cursor-crosshair touch-none block"></canvas>
+        </div>
+      </div>
+
+      <!-- ==================== QUIZ COMPLETION & MANUAL SAVE CARD ==================== -->
+      <div id="quizCompletionCard" class="hidden apple-card p-7 sm:p-10 text-center space-y-6 border-2 border-apple-green/40">
+        <div class="w-20 h-20 rounded-3xl bg-apple-green/15 text-apple-green mx-auto flex items-center justify-center">
+          <svg class="w-11 h-11" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0" />
+          </svg>
+        </div>
+
+        <div class="space-y-2">
+          <h3 class="text-2xl sm:text-3xl font-black">اكتمل الاختبار!</h3>
+          <p id="completionTopicTitle" class="text-base font-bold text-apple-subtext"></p>
+        </div>
+
+        <div class="max-w-md mx-auto grid grid-cols-2 gap-4">
+          <div class="p-4 rounded-2xl bg-apple-bg dark:bg-white/5">
+            <p class="text-xs font-extrabold text-apple-subtext">النقاط المكتسبة</p>
+            <p id="completionRawPoints" class="font-en text-3xl font-black text-apple-blue mt-1">0 / 0</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-apple-bg dark:bg-white/5">
+            <p class="text-xs font-extrabold text-apple-subtext">النسبة المئوية للموضوع</p>
+            <p id="completionPercentage" class="font-en text-3xl font-black text-apple-green mt-1">0%</p>
+          </div>
+        </div>
+
+        <p class="text-xs font-bold text-apple-subtext max-w-lg mx-auto">
+          حسب رغبتك، لا يتم حفظ النتيجة تلقائياً. اضغط على زر <strong>"حفظ نتيجة الاختبار"</strong> أدناه لإضافتها إلى سجل درجات المادة وحساب درجتك من 100.
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <button id="saveQuizResultManualBtn" type="button" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-apple-green hover:opacity-95 text-white font-extrabold text-sm shadow-lg shadow-apple-green/30 transition-all">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+            <span>حفظ نتيجة الاختبار في سجل المادة</span>
+          </button>
+
+          <button id="retryQuizFromSummaryBtn" type="button" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-apple-blue hover:bg-apple-blueHover text-white font-extrabold text-sm transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+            </svg>
+            <span>إعادة الاختبار من جديد</span>
+          </button>
+
+          <button id="backToSubjectFromSummaryBtn" type="button" class="inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-apple-bg dark:bg-white/10 font-extrabold text-sm transition-all">
+            <span>العودة لصفحة المادة</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 4: SAVED RESULTS DASHBOARD ==================== -->
+    <section id="viewResults" class="hidden view-enter space-y-7">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h1 class="text-2xl sm:text-4xl font-black tracking-tight">سجل النتائج وتقييم المواد (من 100)</h1>
+          <p class="text-sm font-bold text-apple-subtext mt-1">
+            تُحسب درجة كل مادة من 100 عن طريق جمع نقاطك في مواضيع المادة وتقسيمها على مجموع أسئلة تلك المواضيع، مع إمكانية إعادة أي اختبار في أي وقت.
+          </p>
+        </div>
+        <button id="clearAllSavedResultsBtn" type="button" class="px-4 py-2.5 rounded-full bg-apple-red/10 text-apple-red text-xs font-extrabold hover:bg-apple-red/20 transition-all">
+          تصفير جميع السجلات المحفوظة
+        </button>
+      </div>
+
+      <div id="allSubjectsResultsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 5: JSON TEMPLATE & AI PROMPT GUIDE ==================== -->
+    <section id="viewTemplate" class="hidden view-enter space-y-7">
+      <div class="apple-card p-6 sm:p-9 space-y-6">
+        <div class="space-y-2">
+          <span class="font-en text-xs font-bold px-3 py-1 rounded-full bg-apple-blue/10 text-apple-blue">DEVELOPER & AI WORKFLOW</span>
+          <h1 class="text-2xl sm:text-4xl font-black tracking-tight">نموذج ملف JSON القياسي + البرومبت الجاهز للذكاء الاصطناعي</h1>
+          <p class="text-sm sm:text-base font-bold text-apple-subtext leading-relaxed">
+            استخدم البرومبت أدناه مع أي ذكاء اصطناعي (مثل ChatGPT أو Gemini أو Claude) لتحويل أي ملازم أو أسئلة عشوائية إلى ملف JSON متوافق 100% مع موقعك، بحيث يحتوي على اسم الموضوع بالإنجليزية والعربية، السؤال بالإنجليزية وتحته ترجمته العربية، الخيارات الأربعة بالإنجليزية فقط، والشرح المفصل مع ترجمته العربية.
+          </p>
+        </div>
+
+        <!-- Part 1: AI Prompt to Copy -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-black text-apple-blue">1. البرومبت الجاهز لإرساله للذكاء الاصطناعي (انسخه وألصق أسئلتك معه)</h2>
+            <button id="copyAiPromptBtn" type="button" class="px-4 py-2 rounded-full bg-apple-blue text-white text-xs font-extrabold shadow-sm hover:bg-apple-blueHover transition-all">
+              نسخ البرومبت الذكي
+            </button>
+          </div>
+          <pre id="aiPromptPre" dir="rtl" class="p-5 rounded-2xl bg-apple-bg dark:bg-black/60 border border-black/10 dark:border-white/15 text-xs sm:text-sm font-bold leading-relaxed whitespace-pre-wrap overflow-x-auto select-all">أريد منك تحويل الأسئلة التالية (أو توليد أسئلة اختيارات MCQ في اختصاص الهندسة الكيمياوية) وترتيبها بدقة داخل كود JSON صالح 100% بدون أي نصوص إضافية خارجه، وفق القواعد الصارمة الآتية:
+
+1. كتابة اسم الموضوع باللغة الإنجليزية في الحقل "topic_en" وباللغة العربية في الحقل "topic_ar" ليقوم الموقع بقراءتهما وطباعتهما في بطاقة الموضوع تلقائياً.
+2. كتابة اسم مجلد المادة في الحقل "subject_folder" من بين المجلدات الثمانية الآتية:
+   - Principles_of_Chemical_Engineering
+   - Fluid_Mechanics
+   - Thermodynamics
+   - Heat_Transfer
+   - Mass_Transfer
+   - Chemical_Reaction_Engineering
+   - General_Questions
+   - English_Language
+3. لكل سؤال داخل مصفوفة "questions":
+   - "question_en": نص السؤال باللغة الإنجليزية.
+   - "question_ar": ترجمة نص السؤال إلى اللغة العربية بدقة (تظهر أسفل السؤال).
+   - "options": مصفوفة تحتوي على 4 خيارات باللغة الإنجليزية فقط (بدون ترجمة الخيارات).
+   - "correct_index": رقم الخيار الصحيح يبدأ من الصفر (0 للخيار الأول، 1 للثاني، 2 للثالث، 3 للرابع).
+   - "explanation_en": شرح علمي واضح باللغة الإنجليزية يوضح لماذا هذا الخيار هو الصحيح مع خطوات الحل.
+   - "explanation_ar": ترجمة شرح الإجابة إلى اللغة العربية (تظهر أسفل الشرح الإنجليزي).
+   - "requires_scratchpad": ضع قيمته true إذا كان السؤال عبارة عن مسألة رياضية تحتاج إلى حل بالقلم في المسودة، أو false إذا كان سؤالاً نظرياً.
+
+استخدم هذا الهيكل القياسي حرفياً:
+{
+  "topic_en": "Density & Specific Gravity",
+  "topic_ar": "الكثافة والوزن النوعي",
+  "subject_folder": "Principles_of_Chemical_Engineering",
+  "description_ar": "وصف مختصر للموضوع",
+  "questions": [
+    {
+      "id": 1,
+      "question_en": "English question text here?",
+      "question_ar": "ترجمة السؤال باللغة العربية هنا؟",
+      "options": [
+        "Option A in English only",
+        "Option B in English only",
+        "Option C in English only",
+        "Option D in English only"
+      ],
+      "correct_index": 0,
+      "explanation_en": "Detailed explanation in English.",
+      "explanation_ar": "ترجمة الشرح باللغة العربية لماذا الخيار صحيح.",
+      "requires_scratchpad": true
+    }
+  ]
+}</pre>
+        </div>
+
+        <!-- Part 2: Exact JSON Schema Template -->
+        <div class="space-y-3 pt-2">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-black">2. نموذج ملف JSON القياسي (مثلاً: <span class="font-en text-apple-blue">Density.json</span>)</h2>
+            <div class="flex items-center gap-2">
+              <button id="copyJsonTemplateBtn" type="button" class="px-4 py-2 rounded-full bg-apple-bg dark:bg-white/10 text-xs font-extrabold hover:bg-black/10 transition-all">
+                نسخ كود JSON
+              </button>
+              <button id="downloadJsonTemplateBtn" type="button" class="px-4 py-2 rounded-full bg-apple-green text-white text-xs font-extrabold shadow-sm hover:opacity-95 transition-all">
+                تحميل ملف TOPIC_TEMPLATE.json
+              </button>
+            </div>
+          </div>
+          <pre id="jsonTemplatePre" dir="ltr" class="font-en p-5 rounded-2xl bg-apple-bg dark:bg-black/60 border border-black/10 dark:border-white/15 text-xs sm:text-sm font-medium leading-relaxed overflow-x-auto select-all"></pre>
+        </div>
+
+        <!-- Part 3: Folder Tree Structure for GitHub -->
+        <div class="space-y-3 pt-2">
+          <h2 class="text-lg font-black">3. هيكلية مجلدات المشروع الجاهزة للرفع على GitHub</h2>
+          <pre dir="ltr" class="font-en p-5 rounded-2xl bg-apple-bg dark:bg-black/60 border border-black/10 dark:border-white/15 text-xs sm:text-sm font-medium leading-relaxed overflow-x-auto">chem-eng-mcq-platform/
+├── index.html                                  # الواجهة الكاملة للموقع (ملف واحد مستقل)
+├── manifest.json                               # فهرس تلقائي اختياري للملفات المحلية
+├── TOPIC_TEMPLATE.json                         # القالب القياسي لملفات الأسئلة
+├── Principles_of_Chemical_Engineering/         # 1. مبادئ الهندسة الكيمياوية
+│   ├── Density.json
+│   └── Material_Balance.json
+├── Fluid_Mechanics/                            # 2. جريان الموائع
+│   └── Reynolds_Number.json
+├── Thermodynamics/                             # 3. الثرموداينمك
+│   └── First_Law.json
+├── Heat_Transfer/                              # 4. انتقال الحرارة
+│   └── Conduction_and_Convection.json
+├── Mass_Transfer/                              # 5. انتقال الكتلة
+│   └── Diffusion_and_Distillation.json
+├── Chemical_Reaction_Engineering/              # 6. المفاعلات
+│   └── Reactor_Design.json
+├── General_Questions/                          # 7. أسئلة عامة
+│   └── Process_Safety_and_Control.json
+└── English_Language/                           # 8. اللغة الإنجليزية
+    └── Technical_English.json</pre>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== MODAL: GITHUB AUTO-DISCOVERY SETTINGS ==================== -->
+  <div id="githubModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+    <div class="apple-card max-w-lg w-full p-6 sm:p-8 space-y-5">
+      <div class="flex items-center justify-between">
+        <h3 class="text-xl font-black">إعدادات الاكتشاف التلقائي من GitHub</h3>
+        <button id="closeGithubModalBtn" type="button" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10">✕</button>
+      </div>
+      <p class="text-xs sm:text-sm font-bold text-apple-subtext leading-relaxed">
+        عند رفع الموقع على <strong>GitHub Pages</strong> (مثلاً <span class="font-en">username.github.io/repo</span>)، يتعرف الموقع تلقائياً على اسم حسابك ومستودعك ويقرأ أي ملف <span class="font-en">.json</span> تضعه داخل مجلدات المواد الثمانية عبر GitHub API دون الحاجة لتعديل الكود! يمكنك أيضاً تحديد بيانات المستودع يدوياً هنا:
+      </p>
+      <div class="space-y-3" dir="ltr">
+        <div>
+          <label class="block text-xs font-bold text-apple-subtext mb-1 font-en">GitHub Owner / Username</label>
+          <input id="ghOwnerInput" type="text" placeholder="e.g. ahmed-chem" class="font-en w-full px-4 py-2.5 rounded-xl bg-apple-bg dark:bg-black border border-black/15 dark:border-white/20 text-sm font-semibold" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-apple-subtext mb-1 font-en">Repository Name</label>
+          <input id="ghRepoInput" type="text" placeholder="e.g. chem-eng-mcq" class="font-en w-full px-4 py-2.5 rounded-xl bg-apple-bg dark:bg-black border border-black/15 dark:border-white/20 text-sm font-semibold" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-apple-subtext mb-1 font-en">Branch (default: main)</label>
+          <input id="ghBranchInput" type="text" value="main" class="font-en w-full px-4 py-2.5 rounded-xl bg-apple-bg dark:bg-black border border-black/15 dark:border-white/20 text-sm font-semibold" />
+        </div>
+      </div>
+      <div class="flex items-center justify-end gap-3 pt-2">
+        <button id="syncGithubNowBtn" type="button" class="px-5 py-2.5 rounded-full bg-apple-blue text-white text-xs sm:text-sm font-extrabold">
+          حفظ ومزامنة الملفات من GitHub
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-black/5 dark:border-white/10 py-6 mt-12 text-center text-xs font-bold text-apple-subtext">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>تصميم وهندسة بواجهة Apple Human Interface — قسم الهندسة الكيمياوية</span>
+      <span class="font-en">Built for GitHub Pages • Dynamic JSON Topic Engine</span>
+    </div>
+  </footer>
+
+  <!-- ==================== APPLICATION LOGIC ==================== -->
+  <script>
+    // 1. Embedded Subjects & Default Sample Topics
+    const SUBJECTS = [{"id": "Principles_of_Chemical_Engineering", "folder": "Principles_of_Chemical_Engineering", "name_ar": "مبادئ الهندسة الكيمياوية", "name_en": "Principles of Chemical Engineering", "desc_ar": "الموازنات المادية والحرارية، الوحدات والأبعاد، الخواص الفيزيائية والكثافة", "icon": "flask", "color": "#0071e3"}, {"id": "Fluid_Mechanics", "folder": "Fluid_Mechanics", "name_ar": "جريان الموائع", "name_en": "Fluid Mechanics", "desc_ar": "ستاتيك الموائع، معادلة برنولي، رقم رينولدز، وفقدان الاحتكاك في الأنابيب", "icon": "waves", "color": "#00c7be"}, {"id": "Thermodynamics", "folder": "Thermodynamics", "name_ar": "الثرموداينمك", "name_en": "Thermodynamics", "desc_ar": "القوانين الأول والثاني، الانتروبي، الغازات الحقيقية، وتوازن الأطوار", "icon": "flame", "color": "#ff9500"}, {"id": "Heat_Transfer", "folder": "Heat_Transfer", "name_ar": "انتقال الحرارة", "name_en": "Heat Transfer", "desc_ar": "التوصيل، الحمل، الإشعاع، وتصميم المبادلات الحرارية", "icon": "thermometer", "color": "#ff3b30"}, {"id": "Mass_Transfer", "folder": "Mass_Transfer", "name_ar": "انتقال الكتلة", "name_en": "Mass Transfer", "desc_ar": "قوانين فيك للانتشار، الامتصاص، التقطير، والاستخلاص", "icon": "layers", "color": "#af52de"}, {"id": "Chemical_Reaction_Engineering", "folder": "Chemical_Reaction_Engineering", "name_ar": "المفاعلات", "name_en": "Chemical Reaction Engineering", "desc_ar": "حركية التفاعلات وتصميم مفاعلات Batch و CSTR و PFR", "icon": "cpu", "color": "#34c759"}, {"id": "General_Questions", "folder": "General_Questions", "name_ar": "أسئلة عامة", "name_en": "General Questions", "desc_ar": "السلامة المهنية، التحكم بالعمليات، اقتصاديات الهندسة، وتشغيل المصانع", "icon": "compass", "color": "#5856d6"}, {"id": "English_Language", "folder": "English_Language", "name_ar": "اللغة الإنجليزية", "name_en": "English Language", "desc_ar": "المصطلحات الهندسية، القواعد، الاستيعاب القرائي، والكتابة التقنية", "icon": "globe", "color": "#ff2d55"}];
+    const DEFAULT_TOPICS_BY_FOLDER = {"Principles_of_Chemical_Engineering": [{"filename": "Density.json", "data": {"topic_en": "Density & Specific Gravity", "topic_ar": "الكثافة والوزن النوعي", "subject_folder": "Principles_of_Chemical_Engineering", "description_ar": "أسئلة شاملة ومسائل حسابية حول الكثافة، الوزن النوعي، والكثافة النوعية للخلائط", "questions": [{"id": 1, "question_en": "If the specific gravity (SG) of a liquid hydrocarbon is 0.82 at 20°C (where the reference density of water is 1000 kg/m³), what is the mass of 2.5 m³ of this liquid?", "question_ar": "إذا كان الوزن النوعي (SG) لسائل هيدروكربوني هو 0.82 عند درجة حرارة 20°C (حيث الكثافة المرجعية للماء هي 1000 كغم/م³)، فما هي كتلة 2.5 م³ من هذا السائل؟", "options": ["2050 kg", "820 kg", "3048.7 kg", "1820 kg"], "correct_index": 0, "explanation_en": "Specific Gravity (SG) = ρ_substance / ρ_ref. Thus, ρ = 0.82 × 1000 = 820 kg/m³. Mass m = ρ × V = 820 kg/m³ × 2.5 m³ = 2050 kg.", "explanation_ar": "الوزن النوعي يساوي كثافة المادة مقسومة على كثافة الماء المرجعية، لذا فإن كثافة السائل = 0.82 × 1000 = 820 كغم/م³. الكتلة تساوي الكثافة في الحجم: 820 × 2.5 = 2050 كغم.", "requires_scratchpad": true}, {"id": 2, "question_en": "Which of the following properties is dimensionless?", "question_ar": "أي من الخواص التالية تعتبر كمية خالية من الوحدات (لابعادية)؟", "options": ["Specific Volume", "Specific Gravity", "Molar Density", "Bulk Density"], "correct_index": 1, "explanation_en": "Specific gravity is the ratio of the density of a substance to the density of a reference substance (usually water), making it a dimensionless ratio.", "explanation_ar": "الوزن النوعي (Specific Gravity) هو نسبة كثافة المادة إلى كثافة مادة مرجعية بنفس الوحدات، ولذلك تختصر الوحدات ويكون بدون وحدات.", "requires_scratchpad": false}, {"id": 3, "question_en": "On the API gravity scale used for petroleum products, pure water at 60°F (SG = 1.0) has an API gravity equal to:", "question_ar": "على مقياس معهد البترول الأمريكي (API) المستخدم للمنتجات النفطية، فإن الماء النقي عند 60°F (وزنه النوعي = 1.0) يمتلك درجة API تساوي:", "options": ["0 °API", "10 °API", "141.5 °API", "100 °API"], "correct_index": 1, "explanation_en": "The formula is °API = (141.5 / SG) - 131.5. Substituting SG = 1.0 gives °API = 141.5 - 131.5 = 10 °API.", "explanation_ar": "حسب قانون API = (141.5 / SG) - 131.5، عند تعويض الوزن النوعي للماء 1.0 نحصل على: 141.5 - 131.5 = 10 درجات API.", "requires_scratchpad": true}, {"id": 4, "question_en": "Two miscible liquids A (ρ = 800 kg/m³, V = 0.4 m³) and B (ρ = 1200 kg/m³, V = 0.6 m³) are mixed assuming ideal volume additivity. What is the density of the mixture?", "question_ar": "تم خلط سائلين قابلين للامتزاج A (كثافته 800 كغم/م³ وحجمه 0.4 م³) و B (كثافته 1200 كغم/م³ وحجمه 0.6 م³) بافتراض جمع الحجوم المثالي. ما هي كثافة الخليط الناتج؟", "options": ["1000 kg/m³", "1040 kg/m³", "960 kg/m³", "1100 kg/m³"], "correct_index": 1, "explanation_en": "Total mass = m_A + m_B = (800 × 0.4) + (1200 × 0.6) = 320 + 720 = 1040 kg. Total volume = 0.4 + 0.6 = 1.0 m³. Mixture density = 1040 / 1.0 = 1040 kg/m³.", "explanation_ar": "الكتلة الكلية = كتلة A + كتلة B = (800 × 0.4) + (1200 × 0.6) = 320 + 720 = 1040 كغم. الحجم الكلي = 0.4 + 0.6 = 1.0 م³. كثافة الخليط = 1040 / 1.0 = 1040 كغم/م³.", "requires_scratchpad": true}]}}, {"filename": "Material_Balance.json", "data": {"topic_en": "Material Balance Without Reaction", "topic_ar": "موازنة المادة بدون تفاعل كيمياوي", "subject_folder": "Principles_of_Chemical_Engineering", "description_ar": "موازنة الوحدات الصناعية، التقطير، التجفيف، وتيارات الرجوع (Recycle & Bypass)", "questions": [{"id": 1, "question_en": "A binary distillation column receives 1000 kg/h of a feed containing 40 wt% benzene and 60 wt% toluene. If the distillate flow rate is 420 kg/h containing 90 wt% benzene, what is the mass of benzene in the bottoms stream?", "question_ar": "يدخل إلى برج تقطير ثنائي مغذي بمعدل 1000 كغم/ساعة يحتوي على 40% وزناً بنزين و 60% تولوين. إذا كان معدل جريان المقطرات العلوية (Distillate) هو 420 كغم/ساعة بتركيز 90% بنزين، فما هي كتلة البنزين في التيار السفلي (Bottoms)؟", "options": ["22 kg/h", "378 kg/h", "42 kg/h", "580 kg/h"], "correct_index": 0, "explanation_en": "Benzene in feed = 1000 × 0.40 = 400 kg/h. Benzene in distillate = 420 × 0.90 = 378 kg/h. By benzene balance: Benzene in bottoms = 400 - 378 = 22 kg/h.", "explanation_ar": "كتلة البنزين الداخلة في المغذي = 1000 × 0.40 = 400 كغم/ساعة. كتلة البنزين الخارجة في الأعلى = 420 × 0.90 = 378 كغم/ساعة. من موازنة البنزين: المتبقي في الأسفل = 400 - 378 = 22 كغم/ساعة.", "requires_scratchpad": true}, {"id": 2, "question_en": "In a steady-state system without chemical reaction, the general conservation of mass equation simplifies to:", "question_ar": "في نظام بحالة مستقرة (Steady-State) وبدون تفاعل كيمياوي، تتبسط معادلة حفظ الكتلة العامة إلى:", "options": ["Accumulation = Input - Output", "Input = Output", "Input + Generation = Output", "Generation = Consumption"], "correct_index": 1, "explanation_en": "At steady state, Accumulation = 0. Without reaction on total mass (or conserved species), Generation = Consumption = 0. Therefore, Input = Output.", "explanation_ar": "في الحالة المستقرة يكون التراكم (Accumulation) صفراً، وبدون تفاعل كيمياوي يكون التوليد والاستهلاك صفراً، وبالتالي فإن الداخل يساوي الخارج (Input = Output).", "requires_scratchpad": false}, {"id": 3, "question_en": "Why is a purge stream necessary in a recycle loop when an inert component enters with the fresh feed?", "question_ar": "لماذا يعتبر تيار التصريف (Purge Stream) ضرورياً في منظومة إعادة التدوير (Recycle Loop) عند وجود مادة خاملة تدخل مع المغذي الجديد؟", "options": ["To increase reactor temperature", "To prevent continuous buildup (accumulation) of inerts in the system", "To eliminate the need for a separator", "To convert inerts into valuable products"], "correct_index": 1, "explanation_en": "Without a purge stream, inert substances entering with the fresh feed would remain trapped in the recycle loop and accumulate indefinitely, preventing steady-state operation.", "explanation_ar": "بدون تيار التصريف (Purge)، ستبقى الغازات أو المواد الخاملة محصورة داخل حلقة الـ Recycle وتتراكم باستمرار مما يمنع وصول العملية إلى حالة الاستقرار.", "requires_scratchpad": false}]}}], "Fluid_Mechanics": [{"filename": "Reynolds_Number.json", "data": {"topic_en": "Reynolds Number & Flow Regimes", "topic_ar": "رقم رينولدز وأنظمة الجريان", "subject_folder": "Fluid_Mechanics", "description_ar": "تحديد نوع الجريان (طباقي أو مضطرب) وحسابات رقم رينولدز في الأنابيب", "questions": [{"id": 1, "question_en": "A fluid with density 900 kg/m³ and dynamic viscosity 0.003 Pa·s flows through a pipe of inner diameter 0.05 m at an average velocity of 0.4 m/s. Calculate the Reynolds number.", "question_ar": "يجري مائع كثافته 900 كغم/م³ ولزوجته الديناميكية 0.003 باسكال.ثانية داخل أنبوب قطره الداخلي 0.05 متر وبسرعة متوسطة 0.4 م/ثا. احسب رقم رينولدز (Re).", "options": ["6000", "1800", "12000", "600"], "correct_index": 0, "explanation_en": "Re = (ρ × v × D) / μ = (900 × 0.4 × 0.05) / 0.003 = 18 / 0.003 = 6000.", "explanation_ar": "بتطبيق قانون رقم رينولدز Re = (ρ × v × D) / μ نحصل على: (900 × 0.4 × 0.05) / 0.003 = 18 / 0.003 = 6000.", "requires_scratchpad": true}, {"id": 2, "question_en": "For flow inside a circular pipe, the flow is guaranteed to be laminar when the Reynolds number is less than:", "question_ar": "بالنسبة للجريان داخل أنبوب دائري، يكون الجريان طباقياً (Laminar) عندما يكون رقم رينولدز أقل من:", "options": ["2100", "4000", "10000", "50000"], "correct_index": 0, "explanation_en": "In circular pipes, flow is laminar for Re < 2100, transitional between 2100 and 4000, and fully turbulent above 4000.", "explanation_ar": "في الأنابيب الدائرية، يصنف الجريان كجريان طباقي عندما يكون رقم رينولدز أقل من 2100، وانتقالي بين 2100 و 4000، ومضطرب فوق 4000.", "requires_scratchpad": false}, {"id": 3, "question_en": "For fully developed laminar flow of a Newtonian fluid in a circular pipe, what is the ratio of average velocity to maximum centerline velocity (v_avg / v_max)?", "question_ar": "في الجريان الطباقي المكتمل لمائع نيوتوني داخل أنبوب دائري، ما هي نسبة السرعة المتوسطة إلى السرعة القصوى في مركز الأنبوب؟", "options": ["0.50", "0.82", "1.00", "0.25"], "correct_index": 0, "explanation_en": "From the Hagen-Poiseuille parabolic velocity profile, the average velocity is exactly half the maximum velocity at the center of the pipe (v_avg / v_max = 0.5).", "explanation_ar": "من توزيع السرعة القطعي المكافئ (معادلة هاجن-بوازوي) للجريان الطباقي، تكون السرعة المتوسطة مساوية تماماً لنصف السرعة العظمى عند المركز (0.5).", "requires_scratchpad": false}]}}], "Thermodynamics": [{"filename": "First_Law.json", "data": {"topic_en": "First Law of Thermodynamics", "topic_ar": "القانون الأول للثرموداينمك", "subject_folder": "Thermodynamics", "description_ar": "الطاقة الداخلية، الإنثالبي، الشغل والحرارة في الأنظمة المغلقة والمفتوحة", "questions": [{"id": 1, "question_en": "A closed piston-cylinder system absorbs 500 J of heat from its surroundings while the gas expands and does 320 J of work on the piston. What is the change in internal energy (ΔU) of the system?", "question_ar": "يمتص نظام مغلق (مكبس وأسطوانة) حرارة مقدارها 500 جول من المحيط بينما يتمدد الغاز وينجز شغلاً مقداره 320 جول على المكبس. ما هو التغير في الطاقة الداخلية (ΔU) للنظام؟", "options": ["+180 J", "+820 J", "-180 J", "-820 J"], "correct_index": 0, "explanation_en": "By the First Law for a closed system: ΔU = Q - W (where W is work done by the system). Thus, ΔU = 500 J - 320 J = +180 J.", "explanation_ar": "حسب القانون الأول للنظام المغلق: التغير في الطاقة الداخلية يساوي الحرارة المضافة ناقصاً الشغل المنجز بواسطة النظام: ΔU = 500 - 320 = +180 جول.", "requires_scratchpad": true}, {"id": 2, "question_en": "During a throttling process across an insulated valve (isenthalpic expansion), which thermodynamic property remains constant between inlet and outlet?", "question_ar": "خلال عملية الخنق (Throttling) عبر صمام معزول حرارياً، أي خاصية ثرموديناميكية تبقى ثابتة بين المدخل والمخرج؟", "options": ["Enthalpy (H)", "Pressure (P)", "Entropy (S)", "Internal Energy (U)"], "correct_index": 0, "explanation_en": "From the steady-flow energy balance with Q = 0, W_s = 0, and negligible kinetic/potential energy changes, ΔH = 0, meaning enthalpy remains constant (H₁ = H₂).", "explanation_ar": "في صمام الخنق المعزول لا توجد حرارة منتقلة ولا شغل محور، وبإهمال تغيرات الطاقة الحركية والكامنة تصبح معادلة الطاقة ΔH = 0 أي أن الإنثالبي يبقى ثابتاً.", "requires_scratchpad": false}]}}], "Heat_Transfer": [{"filename": "Conduction_and_Convection.json", "data": {"topic_en": "Conduction & Heat Exchangers", "topic_ar": "التوصيل الحراري والمبادلات الحرارية", "subject_folder": "Heat_Transfer", "description_ar": "قانون فوريير للتوصيل، قانون نيوتن للتبريد، وفرق درجات الحرارة اللوغاريتمي LMTD", "questions": [{"id": 1, "question_en": "A plane wall of thickness 0.2 m and thermal conductivity k = 1.5 W/(m·K) has surface temperatures of 120°C and 40°C. What is the steady-state heat flux (q/A) through the wall?", "question_ar": "جدار مستوٍ سمكه 0.2 متر ومعامل توصيله الحراري 1.5 واط/(م.كلفن)، ودرجتا حرارة سطحيه 120°C و 40°C. ما هو الفيض الحراري (Heat Flux) المار عبر الجدار في الحالة المستقرة؟", "options": ["600 W/m²", "120 W/m²", "400 W/m²", "24 W/m²"], "correct_index": 0, "explanation_en": "By Fourier's Law: q/A = k × (T₁ - T₂) / L = 1.5 × (120 - 40) / 0.2 = 1.5 × 80 / 0.2 = 600 W/m².", "explanation_ar": "حسب قانون فوريير للتوصيل الحراري: الفيض الحراري q/A = k × ΔT / L = 1.5 × (120 - 40) / 0.2 = 600 واط/م².", "requires_scratchpad": true}, {"id": 2, "question_en": "Which dimensionless number represents the ratio of convective heat transfer to conductive heat transfer across a fluid boundary?", "question_ar": "أي رقم لابعادي يمثل نسبة انتقال الحرارة بالحمل إلى انتقال الحرارة بالتوصيل عبر الطبقة المتاخمة للمائع؟", "options": ["Nusselt Number (Nu)", "Prandtl Number (Pr)", "Biot Number (Bi)", "Fourier Number (Fo)"], "correct_index": 0, "explanation_en": "The Nusselt number (Nu = h·L / k_fluid) is the ratio of convective to conductive heat transfer within the fluid.", "explanation_ar": "رقم نوسلت (Nusselt Number) ويعرف بالعلاقة Nu = hL/k_f يمثل نسبة انتقال الحرارة بالحمل إلى انتقالها بالتوصيل داخل المائع نفسه.", "requires_scratchpad": false}]}}], "Mass_Transfer": [{"filename": "Diffusion_and_Distillation.json", "data": {"topic_en": "Molecular Diffusion & Distillation", "topic_ar": "الانتشار الجزيئي والتقطير", "subject_folder": "Mass_Transfer", "description_ar": "قانون فيك الأول، رقم شميدت، وطريقة مكيب-ثيل في أبراج التقطير", "questions": [{"id": 1, "question_en": "The Schmidt number (Sc) used in mass transfer correlations is defined as:", "question_ar": "يُعرّف رقم شميدت (Schmidt Number) المستخدم في علاقات انتقال الكتلة بأنه:", "options": ["ν / D_AB (Momentum diffusivity / Mass diffusivity)", "α / D_AB (Thermal diffusivity / Mass diffusivity)", "k_c · L / D_AB", "v · L / D_AB"], "correct_index": 0, "explanation_en": "The Schmidt number (Sc = μ / (ρ · D_AB) = ν / D_AB) is the mass-transfer analog of the Prandtl number, comparing momentum diffusivity to mass diffusivity.", "explanation_ar": "رقم شميدت يساوي النسبة بين الانتشارية الحركية (اللزوجة الكينماتيكية ν) والانتشارية الجزيئية للكتلة D_AB، وهو النظير لرقم براندتل في انتقال الحرارة.", "requires_scratchpad": false}, {"id": 2, "question_en": "In the McCabe-Thiele graphical method for binary distillation, if the feed enters as a saturated liquid at its bubble point, what is the value of the feed thermal quality (q) and the slope of the q-line?", "question_ar": "في طريقة مكيب-ثيل البيانية للتقطير الثنائي، إذا دخل المغذي كسائل مشبع عند نقطة الفقاعة (Bubble Point)، فما هي قيمة معامل الحالة الحرارية (q) وميل خط الـ q-line؟", "options": ["q = 1, slope = ∞ (vertical line)", "q = 0, slope = 0 (horizontal line)", "q = 0.5, slope = -1", "q = 1, slope = 0"], "correct_index": 0, "explanation_en": "For a saturated liquid feed, q = 1. The slope of the q-line is q / (q - 1) = 1 / 0 = ∞, which means the q-line is a vertical line on the x-y diagram.", "explanation_ar": "للسائل المشبع تكون قيمة q = 1، وبما أن ميل خط المغذي هو q / (q - 1) فإن الميل يصبح مالانهاية أي خطاً عمودياً تماماً.", "requires_scratchpad": true}]}}], "Chemical_Reaction_Engineering": [{"filename": "Reactor_Design.json", "data": {"topic_en": "Ideal Reactors & Kinetics", "topic_ar": "تصميم المفاعلات المثالية وحركية التفاعلات", "subject_folder": "Chemical_Reaction_Engineering", "description_ar": "مقارنة مفاعلات CSTR و PFR وحساب زمن الاستبقاء وحجم المفاعل", "questions": [{"id": 1, "question_en": "A liquid-phase first-order reaction A → B with rate constant k = 0.2 min⁻¹ takes place in an isothermal CSTR. If the volumetric flow rate is 10 L/min and the desired conversion X_A is 80% (0.8), what reactor volume V is required?", "question_ar": "يجري تفاعل من المرتبة الأولى في الطور السائل A → B بثابت سرعة k = 0.2 دقيقة⁻¹ داخل مفاعل خلط مستمر (CSTR) بثبوت درجة الحرارة. إذا كان معدل الجريان الحجمي 10 لتر/دقيقة ونسبة التحول المطلوبة 80%، فما هو حجم المفاعل المطلوب؟", "options": ["200 L", "40 L", "80 L", "160 L"], "correct_index": 0, "explanation_en": "For a first-order liquid-phase reaction in a CSTR: τ = V / v₀ = X_A / (k × (1 - X_A)). Thus, τ = 0.8 / (0.2 × (1 - 0.8)) = 0.8 / 0.04 = 20 min. Volume V = τ × v₀ = 20 min × 10 L/min = 200 L.", "explanation_ar": "في مفاعل CSTR لتفاعل من المرتبة الأولى: زمن المكوث τ = X / (k(1-X)) = 0.8 / (0.2 × 0.2) = 20 دقيقة. الحجم V = τ × v₀ = 20 × 10 = 200 لتر.", "requires_scratchpad": true}, {"id": 2, "question_en": "For an isothermal positive-order reaction (n > 0), which ideal continuous reactor requires a smaller volume to achieve the same conversion under identical feed conditions?", "question_ar": "لتفاعل ذي مرتبة موجبة (n > 0) عند ثبوت درجة الحرارة، أي مفاعل مستمر مثالي يتطلب حجماً أصغر لتحقيق نفس نسبة التحول تحت نفس ظروف التغذية؟", "options": ["Plug Flow Reactor (PFR)", "Continuous Stirred-Tank Reactor (CSTR)", "Both require the exact same volume", "Recycle CSTR with infinite recycle ratio"], "correct_index": 0, "explanation_en": "For positive reaction orders, the reaction rate decreases as conversion increases. Because a CSTR operates entirely at the lowest exit concentration while a PFR gradually decreases concentration along its length, the PFR always requires a smaller volume.", "explanation_ar": "في التفاعلات ذات الرتب الموجبة تقل سرعة التفاعل مع استهلاك المادة المتفاعلة. ولأن مفاعل CSTR يعمل بالكامل عند التركيز النهائي المنخفض بينما يتدرج التركيز في PFR، فإن PFR يحتاج دائماً إلى حجم أصغر.", "requires_scratchpad": false}]}}], "General_Questions": [{"filename": "Process_Safety_and_Control.json", "data": {"topic_en": "Process Control & Plant Safety", "topic_ar": "السيطرة على العمليات والسلامة الصناعية", "subject_folder": "General_Questions", "description_ar": "متحكمات PID، صمامات الأمان، ودراسات المخاطر HAZOP في المصانع الكيمياوية", "questions": [{"id": 1, "question_en": "In a PID feedback controller, what is the primary purpose of the Integral (I) action?", "question_ar": "في مسيطر التغذية العكسية (PID Controller)، ما هي الوظيفة الأساسية لفعل التكامل (Integral Action)؟", "options": ["To eliminate steady-state offset (error)", "To increase steady-state offset", "To measure process temperature directly", "To act only when the error is zero"], "correct_index": 0, "explanation_en": "Proportional-only control leaves a residual steady-state error (offset). The integral mode integrates error over time and continues adjusting the output until steady-state offset is completely eliminated.", "explanation_ar": "يعمل جزء التكامل (I) على جمع الخطأ بمرور الزمن وتعديل إشارة السيطرة حتى يتم القضاء تماماً على الفرق الدائم (Offset) عند الحالة المستقرة.", "requires_scratchpad": false}, {"id": 2, "question_en": "A spring-loaded Pressure Safety Valve (PSV) is set to open at 15 bar gauge. If the atmospheric pressure is 1.013 bar, what is the absolute opening pressure?", "question_ar": "صمام أمان ضغطي (PSV) مضبوط ليفتح عند ضغط مقياسي (Gauge) مقداره 15 بار. إذا كان الضغط الجوي هو 1.013 بار، فما هو الضغط المطلق لفتح الصمام؟", "options": ["16.013 bar abs", "13.987 bar abs", "15.000 bar abs", "1.013 bar abs"], "correct_index": 0, "explanation_en": "P_abs = P_gauge + P_atm = 15 + 1.013 = 16.013 bar abs.", "explanation_ar": "الضغط المطلق يساوي الضغط المقياسي مضافاً إليه الضغط الجوي: 15 + 1.013 = 16.013 بار مطلق.", "requires_scratchpad": true}]}}], "English_Language": [{"filename": "Technical_English.json", "data": {"topic_en": "Technical Vocabulary & Grammar", "topic_ar": "المصطلحات الهندسية والقواعد اللغوية", "subject_folder": "English_Language", "description_ar": "اختبارات القواعد والمفردات التقنية الخاصة بطلبة الهندسة الكيمياوية", "questions": [{"id": 1, "question_en": "Choose the correct verb form: 'Neither the pressure gauges nor the main control valve _______ functioning properly during yesterday's inspection.'", "question_ar": "اختر صيغة الفعل الصحيحة لإكمال الجملة: 'لم تكن مقاييس الضغط ولا صمام التحكم الرئيسي يعمل بشكل صحيح خلال فحص الأمس.'", "options": ["was", "were", "are", "have been"], "correct_index": 0, "explanation_en": "With 'neither... nor', the verb agrees with the closer subject ('the main control valve', which is singular), and 'yesterday's inspection' requires the past tense, so 'was' is correct.", "explanation_ar": "عند استخدام قاعدة Neither... nor يتبع الفعل الفاعل الأقرب إليه وهو هنا مفرد (the main control valve)، وبما أن الجملة في الماضي (yesterday) نختار was.", "requires_scratchpad": false}, {"id": 2, "question_en": "In chemical engineering terminology, a process that releases heat to its surroundings is called:", "question_ar": "في مصطلحات الهندسة الكيمياوية، تسمى العملية التي تبعث حرارة إلى المحيط الخارجي بـ:", "options": ["Exothermic", "Endothermic", "Adiabatic", "Isobaric"], "correct_index": 0, "explanation_en": "'Exothermic' means releasing heat (ΔH < 0), whereas 'endothermic' means absorbing heat, 'adiabatic' means no heat transfer, and 'isobaric' means constant pressure.", "explanation_ar": "كلمة Exothermic تعني باعث للحرارة، بينما Endothermic تعني ماص للحرارة، و Adiabatic تعني معزول حرارياً، و Isobaric تعني بثبوت الضغط.", "requires_scratchpad": false}]}}]};
+    const TEMPLATE_JSON_STRING = "{\n  \"topic_en\": \"Density & Specific Gravity\",\n  \"topic_ar\": \"\u0627\u0644\u0643\u062b\u0627\u0641\u0629 \u0648\u0627\u0644\u0648\u0632\u0646 \u0627\u0644\u0646\u0648\u0639\u064a\",\n  \"subject_folder\": \"Principles_of_Chemical_Engineering\",\n  \"description_ar\": \"\u0648\u0635\u0641 \u0645\u062e\u062a\u0635\u0631 \u0644\u0644\u0645\u0648\u0636\u0648\u0639 \u064a\u0638\u0647\u0631 \u062a\u062d\u062a \u0639\u0646\u0648\u0627\u0646 \u0627\u0644\u0628\u0637\u0627\u0642\u0629\",\n  \"questions\": [\n    {\n      \"id\": 1,\n      \"question_en\": \"Write the full question in English here?\",\n      \"question_ar\": \"\u0627\u0643\u062a\u0628 \u062a\u0631\u062c\u0645\u0629 \u0627\u0644\u0633\u0624\u0627\u0644 \u0627\u0644\u0643\u0627\u0645\u0644\u0629 \u0628\u0627\u0644\u0644\u063a\u0629 \u0627\u0644\u0639\u0631\u0628\u064a\u0629 \u0647\u0646\u0627\u061f\",\n      \"options\": [\n        \"Option A in English only\",\n        \"Option B in English only\",\n        \"Option C in English only\",\n        \"Option D in English only\"\n      ],\n      \"correct_index\": 0,\n      \"explanation_en\": \"Detailed explanation in English explaining why the correct option is right.\",\n      \"explanation_ar\": \"\u0634\u0631\u062d \u0645\u0641\u0635\u0644 \u0628\u0627\u0644\u0644\u063a\u0629 \u0627\u0644\u0639\u0631\u0628\u064a\u0629 \u064a\u0648\u0636\u062d \u0644\u0645\u0627\u0630\u0627 \u0647\u0630\u0627 \u0627\u0644\u062e\u064a\u0627\u0631 \u0647\u0648 \u0627\u0644\u0635\u062d\u064a\u062d \u0645\u0639 \u062e\u0637\u0648\u0627\u062a \u0627\u0644\u062d\u0644.\",\n      \"requires_scratchpad\": true\n    }\n  ]\n}";
+
+    // 2. Safe LocalStorage Wrapper
+    function safeGetStorage(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+    function safeSetStorage(key, val) {
+      try {
+        localStorage.setItem(key, JSON.stringify(val));
+      } catch (e) {}
+    }
+
+    // 3. Application State
+    const state = {
+      currentView: 'home', // 'home' | 'subject' | 'quiz' | 'results' | 'template'
+      activeSubjectId: null,
+      activeTopicKey: null,
+      topicsBySubject: {}, // { folderName: [ { key, filename, data } ] }
+      savedResults: safeGetStorage('chem_apple_saved_results_v1', {}),
+      // savedResults structure: { [subjectFolder]: { [topicKey]: { topic_ar, topic_en, score, total, timestamp } } }
+      quiz: {
+        questions: [],
+        currentIndex: 0,
+        answers: {}, // { questionIndex: selectedOptionIndex }
+        score: 0,
+        timerEnabled: false,
+        timerSecondsRemaining: 600,
+        timerTotalSeconds: 600,
+        timerInterval: null,
+        scratchpadDataUrls: {} // { questionIndex: dataURL }
+      }
+    };
+
+    // Initialize Topics from Default + Custom Uploaded in localStorage
+    function initTopicsStore() {
+      const customUploaded = safeGetStorage('chem_apple_custom_topics_v1', {});
+      SUBJECTS.forEach(subj => {
+        const folder = subj.folder;
+        const defaults = (DEFAULT_TOPICS_BY_FOLDER[folder] || []).map(item => ({
+          key: folder + '/' + item.filename,
+          filename: item.filename,
+          isCustom: false,
+          data: item.data
+        }));
+        const customs = (customUploaded[folder] || []).map(item => ({
+          key: folder + '/' + item.filename,
+          filename: item.filename,
+          isCustom: true,
+          data: item.data
+        }));
+        // Merge by filename (custom overrides default if same filename)
+        const map = new Map();
+        defaults.forEach(t => map.set(t.filename, t));
+        customs.forEach(t => map.set(t.filename, t));
+        state.topicsBySubject[folder] = Array.from(map.values());
+      });
+    }
+
+    // Automatic GitHub Repository / Manifest Discovery when hosted on GitHub Pages or local web server
+    async function autoDiscoverFromGitHubOrManifest() {
+      // 1) Try manifest.json if served over http/https
+      if (location.protocol.startsWith('http')) {
+        try {
+          const res = await fetch('./manifest.json', { cache: 'no-store' });
+          if (res.ok) {
+            const manifest = await res.json();
+            if (manifest && manifest.subjects) {
+              for (const folder of Object.keys(manifest.subjects)) {
+                const files = manifest.subjects[folder] || [];
+                for (const fname of files) {
+                  try {
+                    const fRes = await fetch(`./${folder}/${fname}`);
+                    if (fRes.ok) {
+                      const jsonData = await fRes.json();
+                      registerTopicInState(folder, fname, jsonData, false);
+                    }
+                  } catch (e) {}
+                }
+              }
+              renderCurrentView();
+            }
+          }
+        } catch (e) {}
+      }
+
+      // 2) Detect GitHub Pages URL (username.github.io/repo) or user-configured GitHub Repo
+      const ghConfig = safeGetStorage('chem_apple_gh_config', null);
+      let owner = ghConfig?.owner || '';
+      let repo = ghConfig?.repo || '';
+      let branch = ghConfig?.branch || 'main';
+
+      if (!owner && location.hostname.endsWith('.github.io')) {
+        owner = location.hostname.replace('.github.io', '');
+        const pathParts = location.pathname.split('/').filter(Boolean);
+        if (pathParts.length > 0) repo = pathParts[0];
+      }
+
+      if (owner && repo) {
+        await fetchTopicsFromGitHubApi(owner, repo, branch, false);
+      }
+    }
+
+    async function fetchTopicsFromGitHubApi(owner, repo, branch = 'main', showNotification = true) {
+      let loadedCount = 0;
+      for (const subj of SUBJECTS) {
+        const folder = subj.folder;
+        const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}?ref=${branch}`;
+        try {
+          const res = await fetch(apiUrl);
+          if (!res.ok) continue;
+          const items = await res.json();
+          if (!Array.isArray(items)) continue;
+          for (const item of items) {
+            if (item.type === 'file' && item.name.toLowerCase().endsWith('.json') && item.download_url) {
+              const fileRes = await fetch(item.download_url);
+              if (fileRes.ok) {
+                const jsonData = await fileRes.json();
+                registerTopicInState(folder, item.name, jsonData, false);
+                loadedCount++;
+              }
+            }
+          }
+        } catch (err) {}
+      }
+      if (showNotification) {
+        if (loadedCount > 0) {
+          showToast(`تمت مزامنة ${loadedCount} ملف موضوع من GitHub بنجاح!`, 'green');
+        } else {
+          showToast('تعذر العثور على ملفات JSON جديدة في المستودع المحدد', 'orange');
+        }
+      }
+      renderCurrentView();
+    }
+
+    // Normalize & Register Topic JSON (handles filename fallback if topic_en/topic_ar omitted)
+    function registerTopicInState(folder, filename, rawJson, persistCustom = true) {
+      const cleanFileTitle = filename.replace(/\.json$/i, '').replace(/[_-]+/g, ' ');
+      const normalized = {
+        topic_en: rawJson.topic_en || rawJson.title_en || cleanFileTitle,
+        topic_ar: rawJson.topic_ar || rawJson.title_ar || cleanFileTitle,
+        subject_folder: rawJson.subject_folder || folder,
+        description_ar: rawJson.description_ar || 'اختبار تفاعلي من ملف ' + filename,
+        questions: Array.isArray(rawJson.questions) ? rawJson.questions.map((q, idx) => ({
+          id: q.id || (idx + 1),
+          question_en: q.question_en || q.question || '',
+          question_ar: q.question_ar || q.translation_ar || '',
+          options: Array.isArray(q.options) && q.options.length >= 2 ? q.options.slice(0, 4) : ['Option A', 'Option B', 'Option C', 'Option D'],
+          correct_index: typeof q.correct_index === 'number' ? q.correct_index : 0,
+          explanation_en: q.explanation_en || q.explanation || '',
+          explanation_ar: q.explanation_ar || '',
+          requires_scratchpad: Boolean(q.requires_scratchpad)
+        })) : []
+      };
+
+      const targetFolder = SUBJECTS.some(s => s.folder === normalized.subject_folder) ? normalized.subject_folder : folder;
+      if (!state.topicsBySubject[targetFolder]) state.topicsBySubject[targetFolder] = [];
+
+      const existingIdx = state.topicsBySubject[targetFolder].findIndex(t => t.filename === filename);
+      const topicEntry = {
+        key: targetFolder + '/' + filename,
+        filename: filename,
+        isCustom: persistCustom,
+        data: normalized
+      };
+
+      if (existingIdx >= 0) {
+        state.topicsBySubject[targetFolder][existingIdx] = topicEntry;
+      } else {
+        state.topicsBySubject[targetFolder].push(topicEntry);
+      }
+
+      if (persistCustom) {
+        const customUploaded = safeGetStorage('chem_apple_custom_topics_v1', {});
+        if (!customUploaded[targetFolder]) customUploaded[targetFolder] = [];
+        const cIdx = customUploaded[targetFolder].findIndex(t => t.filename === filename);
+        if (cIdx >= 0) customUploaded[targetFolder][cIdx] = { filename, data: normalized };
+        else customUploaded[targetFolder].push({ filename, data: normalized });
+        safeSetStorage('chem_apple_custom_topics_v1', customUploaded);
+      }
+      return targetFolder;
+    }
+
+    // 4. Helper: Calculate Subject Grade out of 100
+    function computeSubjectGradeStats(folder) {
+      const subjResults = state.savedResults[folder] || {};
+      const entries = Object.values(subjResults);
+      if (entries.length === 0) {
+        return { hasResults: false, earnedPoints: 0, totalPossible: 0, grade100: null, count: 0 };
+      }
+      let earnedPoints = 0;
+      let totalPossible = 0;
+      entries.forEach(r => {
+        earnedPoints += Number(r.score || 0);
+        totalPossible += Number(r.total || 0);
+      });
+      const grade100 = totalPossible > 0 ? Math.round((earnedPoints / totalPossible) * 1000) / 10 : 0;
+      return {
+        hasResults: true,
+        earnedPoints,
+        totalPossible,
+        grade100,
+        count: entries.length
+      };
+    }
+
+    function updateGlobalBadges() {
+      let totalTopics = 0;
+      SUBJECTS.forEach(s => {
+        totalTopics += (state.topicsBySubject[s.folder] || []).length;
+      });
+      document.getElementById('statTotalTopics').textContent = totalTopics;
+
+      let totalSavedTopics = 0;
+      let sumEarned = 0;
+      let sumPossible = 0;
+      SUBJECTS.forEach(s => {
+        const st = computeSubjectGradeStats(s.folder);
+        if (st.hasResults) {
+          totalSavedTopics += st.count;
+          sumEarned += st.earnedPoints;
+          sumPossible += st.totalPossible;
+        }
+      });
+      document.getElementById('savedResultsCountBadge').textContent = totalSavedTopics;
+      const overallEl = document.getElementById('statOverallAvg');
+      if (sumPossible > 0) {
+        const avg100 = Math.round((sumEarned / sumPossible) * 1000) / 10;
+        overallEl.textContent = avg100 + ' / 100';
+      } else {
+        overallEl.textContent = '—';
+      }
+    }
+
+    // 5. Icons SVG Helper
+    function getSubjectSvgIcon(iconName) {
+      const icons = {
+        flask: '<path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />',
+        waves: '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />',
+        flame: '<path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />',
+        thermometer: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />',
+        layers: '<path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />',
+        cpu: '<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z" />',
+        compass: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />',
+        globe: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />'
+      };
+      return icons[iconName] || icons.flask;
+    }
+
+    // 6. Render Home View (8 Subject Cards)
+    function renderHomeView() {
+      updateGlobalBadges();
+      const grid = document.getElementById('subjectsGrid');
+      grid.innerHTML = '';
+
+      SUBJECTS.forEach((subj, idx) => {
+        const topics = state.topicsBySubject[subj.folder] || [];
+        const totalQuestions = topics.reduce((acc, t) => acc + (t.data.questions ? t.data.questions.length : 0), 0);
+        const stats = computeSubjectGradeStats(subj.folder);
+
+        const card = document.createElement('div');
+        card.className = 'apple-card apple-card-hover p-6 flex flex-col justify-between cursor-pointer group';
+        card.innerHTML = `
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-110" style="background-color: ${subj.color}">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  ${getSubjectSvgIcon(subj.icon)}
+                </svg>
+              </div>
+              <span class="font-en text-xs font-extrabold px-2.5 py-1 rounded-full bg-black/5 dark:bg-white/10 text-apple-subtext">
+                0${idx + 1}
+              </span>
+            </div>
+
+            <div class="space-y-1">
+              <h3 class="text-xl font-black tracking-tight group-hover:text-apple-blue transition-colors">${subj.name_ar}</h3>
+              <p class="font-en text-xs font-semibold text-apple-subtext">${subj.name_en}</p>
+            </div>
+
+            <p class="text-xs font-bold text-apple-subtext leading-relaxed line-clamp-2">
+              ${subj.desc_ar}
+            </p>
+          </div>
+
+          <div class="pt-5 mt-5 border-t border-black/5 dark:border-white/10 space-y-3">
+            <div class="flex items-center justify-between text-xs font-extrabold">
+              <span class="text-apple-subtext">المواضيع: <strong class="font-en text-apple-text dark:text-apple-darkText">${topics.length}</strong> (${totalQuestions} سؤال)</span>
+              ${
+                stats.hasResults
+                  ? `<span class="font-en px-2.5 py-0.5 rounded-full bg-apple-green/15 text-apple-green font-black">${stats.grade100} / 100</span>`
+                  : `<span class="text-apple-subtext">لم يُختبر بعد</span>`
+              }
+            </div>
+
+            <div class="w-full py-2.5 px-4 rounded-xl bg-apple-bg dark:bg-white/5 group-hover:bg-apple-blue group-hover:text-white text-xs font-extrabold flex items-center justify-between transition-colors">
+              <span>فتح المواضيع والنتائج</span>
+              <span class="font-en">←</span>
+            </div>
+          </div>
+        `;
+        card.addEventListener('click', () => {
+          openSubjectView(subj.id);
+        });
+        grid.appendChild(card);
+      });
+    }
+
+    // 7. Open & Render Subject View
+    function openSubjectView(subjectId) {
+      state.activeSubjectId = subjectId;
+      switchView('subject');
+    }
+
+    function renderSubjectView() {
+      updateGlobalBadges();
+      const subj = SUBJECTS.find(s => s.id === state.activeSubjectId) || SUBJECTS[0];
+      state.activeSubjectId = subj.id;
+      const topics = state.topicsBySubject[subj.folder] || [];
+      const stats = computeSubjectGradeStats(subj.folder);
+
+      document.getElementById('subjectFolderBadge').textContent = subj.folder + '/';
+      document.getElementById('subjectTopicsCountBadge').textContent = `${topics.length} مواضيع متاحة`;
+      document.getElementById('subjectTitleAr').textContent = subj.name_ar;
+      document.getElementById('subjectTitleEn').textContent = subj.name_en;
+      document.getElementById('subjectDescAr').textContent = subj.desc_ar;
+
+      const gradeEl = document.getElementById('subjectGrade100');
+      const summaryEl = document.getElementById('subjectPointsSummary');
+      if (stats.hasResults) {
+        gradeEl.textContent = stats.grade100;
+        summaryEl.textContent = `مجموع النقاط المحفوظة: ${stats.earnedPoints} من أصل ${stats.totalPossible} نقطة`;
+      } else {
+        gradeEl.textContent = '—';
+        summaryEl.textContent = 'لم يتم حفظ أي نتيجة في هذه المادة بعد';
+      }
+
+      // Render Topic Cards
+      const topicsGrid = document.getElementById('topicsGrid');
+      topicsGrid.innerHTML = '';
+
+      if (topics.length === 0) {
+        topicsGrid.innerHTML = `
+          <div class="col-span-full apple-card p-8 text-center space-y-3">
+            <p class="text-base font-extrabold">لا توجد ملفات مواضيع في هذا المجلد حالياً</p>
+            <p class="text-xs font-bold text-apple-subtext">اضغط على زر "رفع ملف موضوع جديد (.json)" بالأعلى لإضافة بطاقة موضوع فوراً.</p>
+          </div>
+        `;
+      } else {
+        topics.forEach(topicObj => {
+          const d = topicObj.data;
+          const qCount = Array.isArray(d.questions) ? d.questions.length : 0;
+          const savedTopicResult = (state.savedResults[subj.folder] || {})[topicObj.key];
+
+          const tCard = document.createElement('div');
+          tCard.className = 'apple-card apple-card-hover p-6 flex flex-col justify-between cursor-pointer group';
+          tCard.innerHTML = `
+            <div class="space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="font-en text-xs font-bold px-2.5 py-1 rounded-full bg-apple-blue/10 text-apple-blue">${topicObj.filename}</span>
+                ${
+                  savedTopicResult
+                    ? `<span class="font-en text-xs font-extrabold px-2.5 py-1 rounded-full bg-apple-green/15 text-apple-green">محفوظ: ${savedTopicResult.score}/${savedTopicResult.total}</span>`
+                    : `<span class="text-xs font-bold text-apple-subtext">${qCount} أسئلة</span>`
+                }
+              </div>
+
+              <div>
+                <h3 class="text-xl font-black group-hover:text-apple-blue transition-colors">${d.topic_ar}</h3>
+                <p class="font-en text-sm font-semibold text-apple-subtext">${d.topic_en}</p>
+              </div>
+
+              <p class="text-xs font-bold text-apple-subtext leading-relaxed">
+                ${d.description_ar || 'أسئلة اختيارات شاملة مع الترجمة والشرح التفصيلي'}
+              </p>
+            </div>
+
+            <div class="pt-5 mt-5 border-t border-black/5 dark:border-white/10 flex items-center justify-between gap-2">
+              <span class="text-xs font-extrabold text-apple-blue group-hover:translate-x-[-3px] transition-transform">
+                ${savedTopicResult ? 'إعادة الاختبار أو المراجعة ←' : 'بدء الاختبار الآن ←'}
+              </span>
+              <span class="font-en text-xs font-bold px-2.5 py-1 rounded-lg bg-apple-bg dark:bg-white/10">${qCount} Pts</span>
+            </div>
+          `;
+          tCard.addEventListener('click', () => {
+            startQuiz(subj.id, topicObj.key);
+          });
+          topicsGrid.appendChild(tCard);
+        });
+      }
+
+      // Render Saved Results Breakdown for this Subject
+      const savedListEl = document.getElementById('subjectSavedResultsList');
+      const subjSavedMap = state.savedResults[subj.folder] || {};
+      const savedKeys = Object.keys(subjSavedMap);
+
+      if (savedKeys.length === 0) {
+        savedListEl.innerHTML = `
+          <div class="py-6 text-center text-xs font-bold text-apple-subtext">
+            لا توجد نتائج محفوظة لهذه المادة حتى الآن. أكمل أي موضوع واضغط على "حفظ نتيجة الاختبار" لتظهر هنا.
+          </div>
+        `;
+      } else {
+        savedListEl.innerHTML = '';
+        savedKeys.forEach(tKey => {
+          const item = subjSavedMap[tKey];
+          const pct = item.total > 0 ? Math.round((item.score / item.total) * 100) : 0;
+          const row = document.createElement('div');
+          row.className = 'py-3.5 flex flex-wrap items-center justify-between gap-4';
+          row.innerHTML = `
+            <div>
+              <p class="font-black text-sm">${item.topic_ar} <span class="font-en font-semibold text-xs text-apple-subtext">(${item.topic_en})</span></p>
+              <p class="text-xs font-bold text-apple-subtext">النقاط المحققة: <span class="font-en font-extrabold text-apple-text dark:text-apple-darkText">${item.score} / ${item.total}</span> (${pct}%)</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" class="retry-topic-btn px-3.5 py-1.5 rounded-full bg-apple-blue/10 text-apple-blue text-xs font-extrabold hover:bg-apple-blue hover:text-white transition-all">
+                إعادة الاختبار
+              </button>
+            </div>
+          `;
+          row.querySelector('.retry-topic-btn').addEventListener('click', () => {
+            startQuiz(subj.id, tKey);
+          });
+          savedListEl.appendChild(row);
+        });
+      }
+    }
+
+    // 8. Quiz Engine
+    function stopQuizTimer() {
+      if (state.quiz.timerInterval) {
+        clearInterval(state.quiz.timerInterval);
+        state.quiz.timerInterval = null;
+      }
+    }
+
+    function startQuiz(subjectId, topicKey) {
+      stopQuizTimer();
+      const subj = SUBJECTS.find(s => s.id === subjectId) || SUBJECTS[0];
+      const topicObj = (state.topicsBySubject[subj.folder] || []).find(t => t.key === topicKey);
+      if (!topicObj || !topicObj.data.questions || topicObj.data.questions.length === 0) {
+        showToast('هذا الموضوع لا يحتوي على أسئلة صالحة', 'red');
+        return;
+      }
+
+      state.activeSubjectId = subj.id;
+      state.activeTopicKey = topicKey;
+      state.quiz.questions = topicObj.data.questions;
+      state.quiz.currentIndex = 0;
+      state.quiz.answers = {};
+      state.quiz.score = 0;
+      state.quiz.timerEnabled = false;
+      state.quiz.scratchpadDataUrls = {};
+
+      // Reset Timer UI
+      document.getElementById('timerToggleBtnLabel').textContent = 'تفعيل الوقت';
+      document.getElementById('timerConfigBox').classList.add('hidden');
+      document.getElementById('activeTimerDisplayBox').classList.add('hidden');
+      document.getElementById('quizCompletionCard').classList.add('hidden');
+      document.getElementById('questionMainCard').classList.remove('hidden');
+
+      document.getElementById('quizSubjectBadge').textContent = subj.name_ar;
+      document.getElementById('quizTopicEnBadge').textContent = topicObj.data.topic_en;
+      document.getElementById('quizTopicArTitle').textContent = topicObj.data.topic_ar;
+
+      switchView('quiz');
+      renderQuizQuestion();
+      setTimeout(() => {
+        resizeScratchCanvas();
+        clearScratchCanvas(false);
+      }, 60);
+    }
+
+    function updateTimerVisuals() {
+      const rem = state.quiz.timerSecondsRemaining;
+      const tot = state.quiz.timerTotalSeconds || 1;
+      const ratio = rem / tot;
+      const mins = Math.floor(rem / 60);
+      const secs = rem % 60;
+      document.getElementById('timerClockText').textContent =
+        String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+
+      const box = document.getElementById('activeTimerDisplayBox');
+      const dot = document.getElementById('timerDotIndicator');
+      box.className = 'flex items-center gap-2 px-3 py-1 rounded-xl font-en font-extrabold text-sm transition-colors ';
+      dot.className = 'w-2 h-2 rounded-full animate-ping ';
+
+      if (ratio > 0.5) {
+        box.className += 'bg-apple-green/15 text-apple-green';
+        dot.className += 'bg-apple-green';
+      } else if (ratio > 0.2) {
+        box.className += 'bg-apple-orange/15 text-apple-orange';
+        dot.className += 'bg-apple-orange';
+      } else {
+        box.className += 'bg-apple-red/20 text-apple-red animate-pulse';
+        dot.className += 'bg-apple-red';
+      }
+    }
+
+    function startCountdownTimer(minutes) {
+      stopQuizTimer();
+      const totalSecs = Math.max(1, Math.min(180, Number(minutes) || 10)) * 60;
+      state.quiz.timerEnabled = true;
+      state.quiz.timerTotalSeconds = totalSecs;
+      state.quiz.timerSecondsRemaining = totalSecs;
+
+      document.getElementById('timerConfigBox').classList.add('hidden');
+      document.getElementById('activeTimerDisplayBox').classList.remove('hidden');
+      document.getElementById('timerToggleBtnLabel').textContent = 'إيقاف المؤقت';
+      updateTimerVisuals();
+
+      state.quiz.timerInterval = setInterval(() => {
+        if (state.quiz.timerSecondsRemaining > 0) {
+          state.quiz.timerSecondsRemaining--;
+          updateTimerVisuals();
+        } else {
+          stopQuizTimer();
+          showToast('انتهى الوقت المحدد للاختبار! يمكنك مراجعة إجاباتك أو حفظ النتيجة.', 'red');
+          showQuizSummaryCard();
+        }
+      }, 1000);
+    }
+
+    function renderQuizQuestion() {
+      const qs = state.quiz.questions;
+      const idx = state.quiz.currentIndex;
+      const q = qs[idx];
+      if (!q) return;
+
+      // Update Live Score
+      document.getElementById('quizLiveScoreText').textContent = `${state.quiz.score} / ${qs.length}`;
+
+      // Render Question Number Pills
+      const pillsBar = document.getElementById('questionNumberPills');
+      pillsBar.innerHTML = '';
+      qs.forEach((item, i) => {
+        const pill = document.createElement('button');
+        pill.type = 'button';
+        const answered = state.quiz.answers[i] !== undefined;
+        const isCorrect = answered && state.quiz.answers[i] === item.correct_index;
+
+        let pillStyle = 'bg-white dark:bg-apple-darkCard text-apple-subtext border border-black/10 dark:border-white/15';
+        if (i === idx) {
+          pillStyle = 'bg-apple-blue text-white font-black ring-2 ring-apple-blue/30';
+        } else if (answered) {
+          pillStyle = isCorrect
+            ? 'bg-apple-green/15 text-apple-green border border-apple-green/40 font-black'
+            : 'bg-apple-red/15 text-apple-red border border-apple-red/40 font-black';
+        }
+
+        pill.className = `font-en w-9 h-9 rounded-full text-xs font-bold shrink-0 transition-all ${pillStyle}`;
+        pill.textContent = i + 1;
+        pill.addEventListener('click', () => {
+          saveCurrentScratchpadSnapshot();
+          state.quiz.currentIndex = i;
+          renderQuizQuestion();
+          restoreScratchpadSnapshot();
+        });
+        pillsBar.appendChild(pill);
+      });
+
+      // Header Badges
+      document.getElementById('currentQuestionNumBadge').textContent = `Question ${idx + 1} of ${qs.length}`;
+      const probBadge = document.getElementById('problemBadge');
+      if (q.requires_scratchpad) {
+        probBadge.classList.remove('hidden');
+        document.getElementById('scratchpadSection').classList.remove('hidden');
+      } else {
+        probBadge.classList.add('hidden');
+      }
+
+      // Texts
+      document.getElementById('questionTextEn').textContent = `${idx + 1}. ${q.question_en}`;
+      document.getElementById('questionTextAr').textContent = q.question_ar;
+
+      // Options
+      const optionsContainer = document.getElementById('optionsContainer');
+      optionsContainer.innerHTML = '';
+      const selectedIdx = state.quiz.answers[idx];
+      const isAnswered = selectedIdx !== undefined;
+      const letters = ['A', 'B', 'C', 'D'];
+
+      q.options.forEach((optText, oIdx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.disabled = isAnswered;
+
+        let stateClass = 'bg-apple-bg/60 dark:bg-white/5 border-black/10 dark:border-white/15 text-apple-text dark:text-apple-darkText';
+        let badgeClass = 'bg-white dark:bg-white/10 text-apple-text dark:text-apple-darkText';
+
+        if (isAnswered) {
+          if (oIdx === q.correct_index) {
+            stateClass = 'option-correct font-bold';
+            badgeClass = 'bg-apple-green text-white';
+          } else if (oIdx === selectedIdx && selectedIdx !== q.correct_index) {
+            stateClass = 'option-wrong font-bold';
+            badgeClass = 'bg-apple-red text-white';
+          } else {
+            stateClass = 'opacity-60 bg-apple-bg/40 dark:bg-white/5 border-black/5 dark:border-white/5';
+          }
+        }
+
+        btn.className = `option-btn w-full p-4 sm:p-5 rounded-2xl border-2 flex items-center justify-between gap-4 text-left ${stateClass}`;
+        btn.innerHTML = `
+          <div class="flex items-center gap-3.5">
+            <span class="w-8 h-8 rounded-xl flex items-center justify-center font-extrabold text-sm shrink-0 ${badgeClass}">
+              ${letters[oIdx] || (oIdx + 1)}
+            </span>
+            <span class="text-base sm:text-lg font-semibold">${optText}</span>
+          </div>
+          ${
+            isAnswered && oIdx === q.correct_index
+              ? `<span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-apple-green text-white shrink-0">✓ الصحيح</span>`
+              : isAnswered && oIdx === selectedIdx && selectedIdx !== q.correct_index
+              ? `<span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-apple-red text-white shrink-0">✕ إجابتك</span>`
+              : ''
+          }
+        `;
+
+        btn.addEventListener('click', () => {
+          handleSelectOption(oIdx);
+        });
+        optionsContainer.appendChild(btn);
+      });
+
+      // Explanation Box
+      const expBox = document.getElementById('explanationBox');
+      if (isAnswered) {
+        expBox.classList.remove('hidden');
+        const isCorrect = selectedIdx === q.correct_index;
+        const iconEl = document.getElementById('explanationStatusIcon');
+        const titleEl = document.getElementById('explanationStatusTitle');
+
+        if (isCorrect) {
+          expBox.className = 'rounded-3xl p-5 sm:p-6 border-2 border-apple-green/40 bg-apple-green/10 space-y-3';
+          iconEl.className = 'w-7 h-7 rounded-full flex items-center justify-center bg-apple-green text-white font-bold text-sm';
+          iconEl.textContent = '✓';
+          titleEl.className = 'font-black text-base sm:text-lg text-apple-green';
+          titleEl.textContent = 'إجابة صحيحة! أحسنت (+1 نقطة)';
+        } else {
+          expBox.className = 'rounded-3xl p-5 sm:p-6 border-2 border-apple-red/40 bg-apple-red/10 space-y-3';
+          iconEl.className = 'w-7 h-7 rounded-full flex items-center justify-center bg-apple-red text-white font-bold text-sm';
+          iconEl.textContent = '✕';
+          titleEl.className = 'font-black text-base sm:text-lg text-apple-red';
+          titleEl.textContent = `إجابة غير صحيحة — الخيار الصحيح هو (${letters[q.correct_index]})`;
+        }
+
+        document.getElementById('explanationTextEn').textContent = q.explanation_en;
+        document.getElementById('explanationTextAr').textContent = q.explanation_ar;
+      } else {
+        expBox.classList.add('hidden');
+      }
+
+      // Navigation Buttons State
+      document.getElementById('prevQuestionBtn').disabled = idx === 0;
+      const nextBtn = document.getElementById('nextQuestionBtn');
+      const finishBtn = document.getElementById('finishQuizSummaryBtn');
+
+      if (idx === qs.length - 1) {
+        nextBtn.classList.add('hidden');
+        finishBtn.classList.remove('hidden');
+      } else {
+        nextBtn.classList.remove('hidden');
+        finishBtn.classList.add('hidden');
+      }
+    }
+
+    function handleSelectOption(optionIdx) {
+      const idx = state.quiz.currentIndex;
+      if (state.quiz.answers[idx] !== undefined) return;
+      state.quiz.answers[idx] = optionIdx;
+
+      // Recalculate total score
+      let s = 0;
+      state.quiz.questions.forEach((q, i) => {
+        if (state.quiz.answers[i] === q.correct_index) s++;
+      });
+      state.quiz.score = s;
+      renderQuizQuestion();
+    }
+
+    function showQuizSummaryCard() {
+      saveCurrentScratchpadSnapshot();
+      const subj = SUBJECTS.find(s => s.id === state.activeSubjectId) || SUBJECTS[0];
+      const topicObj = (state.topicsBySubject[subj.folder] || []).find(t => t.key === state.activeTopicKey);
+      const total = state.quiz.questions.length;
+      const score = state.quiz.score;
+      const pct = total > 0 ? Math.round((score / total) * 100) : 0;
+
+      document.getElementById('completionTopicTitle').textContent =
+        `${subj.name_ar} — ${topicObj ? topicObj.data.topic_ar : ''}`;
+      document.getElementById('completionRawPoints').textContent = `${score} / ${total}`;
+      document.getElementById('completionPercentage').textContent = `${pct}%`;
+
+      const compCard = document.getElementById('quizCompletionCard');
+      compCard.classList.remove('hidden');
+      compCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function saveManualQuizResult() {
+      const subj = SUBJECTS.find(s => s.id === state.activeSubjectId) || SUBJECTS[0];
+      const topicObj = (state.topicsBySubject[subj.folder] || []).find(t => t.key === state.activeTopicKey);
+      if (!topicObj) return;
+
+      if (!state.savedResults[subj.folder]) {
+        state.savedResults[subj.folder] = {};
+      }
+      state.savedResults[subj.folder][state.activeTopicKey] = {
+        topic_ar: topicObj.data.topic_ar,
+        topic_en: topicObj.data.topic_en,
+        score: state.quiz.score,
+        total: state.quiz.questions.length,
+        timestamp: new Date().toISOString()
+      };
+      safeSetStorage('chem_apple_saved_results_v1', state.savedResults);
+      updateGlobalBadges();
+      const st = computeSubjectGradeStats(subj.folder);
+      showToast(`تم حفظ النتيجة! درجة مادة ${subj.name_ar} الآن: ${st.grade100} من 100`, 'green');
+    }
+
+    // 9. Interactive Apple Freeform Drawing Scratchpad Engine
+    const scratchState = {
+      drawing: false,
+      tool: 'pen', // 'pen' | 'fountain' | 'highlighter' | 'eraser'
+      color: '#1d1d1f',
+      lineWidth: 3,
+      history: []
+    };
+
+    const canvasEl = document.getElementById('scratchCanvas');
+    const ctx = canvasEl.getContext('2d');
+
+    function resizeScratchCanvas() {
+      const wrapper = document.getElementById('scratchCanvasWrapper');
+      if (!wrapper || wrapper.clientWidth === 0) return;
+      const tempUrl = canvasEl.toDataURL();
+      const dpr = window.devicePixelRatio || 1;
+      canvasEl.width = wrapper.clientWidth * dpr;
+      canvasEl.height = wrapper.clientHeight * dpr;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+      if (tempUrl && tempUrl.length > 100) {
+        const img = new Image();
+        img.onload = () => {
+          ctx.drawImage(img, 0, 0, wrapper.clientWidth, wrapper.clientHeight);
+        };
+        img.src = tempUrl;
+      }
+    }
+
+    function pushScratchHistory() {
+      try {
+        if (scratchState.history.length >= 15) scratchState.history.shift();
+        scratchState.history.push(canvasEl.toDataURL());
+      } catch (e) {}
+    }
+
+    function getPointerPos(e) {
+      const rect = canvasEl.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    function startScratchDraw(e) {
+      e.preventDefault();
+      pushScratchHistory();
+      scratchState.drawing = true;
+      const pos = getPointerPos(e);
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+    }
+
+    function moveScratchDraw(e) {
+      if (!scratchState.drawing) return;
+      e.preventDefault();
+      const pos = getPointerPos(e);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      if (scratchState.tool === 'eraser') {
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.globalAlpha = 1.0;
+        ctx.lineWidth = scratchState.lineWidth * 5;
+      } else if (scratchState.tool === 'highlighter') {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = 0.28;
+        ctx.strokeStyle = scratchState.color;
+        ctx.lineWidth = scratchState.lineWidth * 4;
+      } else if (scratchState.tool === 'fountain') {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = 1.0;
+        ctx.strokeStyle = scratchState.color;
+        ctx.lineWidth = scratchState.lineWidth * 1.8;
+      } else {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = 1.0;
+        ctx.strokeStyle = scratchState.color;
+        ctx.lineWidth = scratchState.lineWidth;
+      }
+
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+    }
+
+    function stopScratchDraw() {
+      if (!scratchState.drawing) return;
+      scratchState.drawing = false;
+      ctx.beginPath();
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = 1.0;
+    }
+
+    function clearScratchCanvas(recordUndo = true) {
+      if (recordUndo) pushScratchHistory();
+      const wrapper = document.getElementById('scratchCanvasWrapper');
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
+      ctx.restore();
+    }
+
+    function saveCurrentScratchpadSnapshot() {
+      try {
+        state.quiz.scratchpadDataUrls[state.quiz.currentIndex] = canvasEl.toDataURL();
+      } catch (e) {}
+    }
+
+    function restoreScratchpadSnapshot() {
+      clearScratchCanvas(false);
+      scratchState.history = [];
+      const savedUrl = state.quiz.scratchpadDataUrls[state.quiz.currentIndex];
+      if (savedUrl) {
+        const wrapper = document.getElementById('scratchCanvasWrapper');
+        const img = new Image();
+        img.onload = () => {
+          ctx.drawImage(img, 0, 0, wrapper.clientWidth, wrapper.clientHeight);
+        };
+        img.src = savedUrl;
+      }
+    }
+
+    // Attach Canvas Listeners
+    canvasEl.addEventListener('mousedown', startScratchDraw);
+    canvasEl.addEventListener('mousemove', moveScratchDraw);
+    window.addEventListener('mouseup', stopScratchDraw);
+    canvasEl.addEventListener('touchstart', startScratchDraw, { passive: false });
+    canvasEl.addEventListener('touchmove', moveScratchDraw, { passive: false });
+    window.addEventListener('touchend', stopScratchDraw);
+    window.addEventListener('resize', resizeScratchCanvas);
+
+    // 10. Render All Saved Results View
+    function renderResultsDashboardView() {
+      updateGlobalBadges();
+      const container = document.getElementById('allSubjectsResultsContainer');
+      container.innerHTML = '';
+
+      SUBJECTS.forEach(subj => {
+        const stats = computeSubjectGradeStats(subj.folder);
+        const subjMap = state.savedResults[subj.folder] || {};
+        const topicKeys = Object.keys(subjMap);
+
+        const card = document.createElement('div');
+        card.className = 'apple-card p-6 sm:p-7 flex flex-col justify-between space-y-5';
+
+        let topicsHtml = '';
+        if (topicKeys.length === 0) {
+          topicsHtml = `<p class="text-xs font-bold text-apple-subtext py-3">لم يتم حفظ أي اختبار في هذه المادة بعد.</p>`;
+        } else {
+          topicsHtml = `<div class="divide-y divide-black/5 dark:divide-white/10">` +
+            topicKeys.map(k => {
+              const r = subjMap[k];
+              return `
+                <div class="py-3 flex items-center justify-between gap-2">
+                  <div>
+                    <p class="text-sm font-black">${r.topic_ar}</p>
+                    <p class="font-en text-xs text-apple-subtext">${r.topic_en}</p>
+                  </div>
+                  <div class="flex items-center gap-2.5">
+                    <span class="font-en text-xs font-extrabold px-2.5 py-1 rounded-lg bg-apple-bg dark:bg-white/10">${r.score} / ${r.total}</span>
+                    <button type="button" data-subj="${subj.id}" data-key="${k}" class="dashboard-retry-btn text-xs font-extrabold px-3 py-1.5 rounded-full bg-apple-blue text-white hover:bg-apple-blueHover transition-all">
+                      إعادة
+                    </button>
+                  </div>
+                </div>
+              `;
+            }).join('') +
+            `</div>`;
+        }
+
+        card.innerHTML = `
+          <div class="space-y-4">
+            <div class="flex items-center justify-between gap-3 border-b border-black/5 dark:border-white/10 pb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center text-white" style="background-color: ${subj.color}">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    ${getSubjectSvgIcon(subj.icon)}
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-lg font-black">${subj.name_ar}</h3>
+                  <p class="font-en text-xs font-semibold text-apple-subtext">${subj.name_en}</p>
+                </div>
+              </div>
+
+              <div class="text-left">
+                <span class="text-xs font-bold text-apple-subtext block">الدرجة من 100</span>
+                <span class="font-en text-2xl font-black ${stats.hasResults ? 'text-apple-green' : 'text-apple-subtext'}">
+                  ${stats.hasResults ? stats.grade100 + ' / 100' : '—'}
+                </span>
+              </div>
+            </div>
+
+            ${topicsHtml}
+          </div>
+
+          <div class="pt-3 border-t border-black/5 dark:border-white/10 flex items-center justify-between text-xs font-bold text-apple-subtext">
+            <span>إجمالي النقاط: <strong class="font-en text-apple-text dark:text-apple-darkText">${stats.earnedPoints} / ${stats.totalPossible}</strong></span>
+            <button type="button" data-open-subj="${subj.id}" class="open-subj-from-res text-apple-blue font-extrabold hover:underline">
+              فتح بطاقة المادة ←
+            </button>
+          </div>
+        `;
+
+        card.querySelectorAll('.dashboard-retry-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            startQuiz(btn.getAttribute('data-subj'), btn.getAttribute('data-key'));
+          });
+        });
+        card.querySelector('.open-subj-from-res').addEventListener('click', () => {
+          openSubjectView(subj.id);
+        });
+
+        container.appendChild(card);
+      });
+    }
+
+    // 11. Handle File Uploads (.json)
+    function handleJsonFilesUpload(fileList, defaultSubjectFolder = null) {
+      if (!fileList || fileList.length === 0) return;
+      Array.from(fileList).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const parsed = JSON.parse(e.target.result);
+            const targetFolder = defaultSubjectFolder || parsed.subject_folder || SUBJECTS[0].folder;
+            const actualFolder = registerTopicInState(targetFolder, file.name, parsed, true);
+            const subj = SUBJECTS.find(s => s.folder === actualFolder) || SUBJECTS[0];
+            showToast(`تمت إضافة موضوع "${parsed.topic_ar || file.name}" داخل ${subj.name_ar}`, 'green');
+            openSubjectView(subj.id);
+          } catch (err) {
+            showToast(`خطأ في تنسيق ملف JSON (${file.name}). تأكد من مطابقته للنموذج القياسي.`, 'red');
+          }
+        };
+        reader.readAsText(file, 'utf-8');
+      });
+    }
+
+    // 12. View Switching Router
+    function switchView(viewName) {
+      if (viewName !== 'quiz') stopQuizTimer();
+      state.currentView = viewName;
+
+      const views = {
+        home: document.getElementById('viewHome'),
+        subject: document.getElementById('viewSubject'),
+        quiz: document.getElementById('viewQuiz'),
+        results: document.getElementById('viewResults'),
+        template: document.getElementById('viewTemplate')
+      };
+
+      Object.keys(views).forEach(k => {
+        if (k === viewName) views[k].classList.remove('hidden');
+        else views[k].classList.add('hidden');
+      });
+
+      // Update Nav Buttons Active State
+      const navMap = {
+        home: document.getElementById('navSubjectsBtn'),
+        subject: document.getElementById('navSubjectsBtn'),
+        quiz: document.getElementById('navSubjectsBtn'),
+        results: document.getElementById('navResultsBtn'),
+        template: document.getElementById('navTemplateBtn')
+      };
+      [document.getElementById('navSubjectsBtn'), document.getElementById('navResultsBtn'), document.getElementById('navTemplateBtn')].forEach(b => {
+        b.className = 'px-3.5 py-2 rounded-full text-sm font-extrabold transition-all text-apple-text dark:text-apple-darkText hover:bg-black/5 dark:hover:bg-white/10 flex items-center gap-1.5';
+      });
+      if (navMap[viewName]) {
+        navMap[viewName].className = 'px-3.5 py-2 rounded-full text-sm font-extrabold transition-all bg-apple-blue text-white shadow-sm flex items-center gap-1.5';
+      }
+
+      renderCurrentView();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderCurrentView() {
+      if (state.currentView === 'home') renderHomeView();
+      else if (state.currentView === 'subject') renderSubjectView();
+      else if (state.currentView === 'results') renderResultsDashboardView();
+    }
+
+    // 13. Toast Helper & Copy Helper
+    let toastTimer = null;
+    function showToast(message, color = 'green') {
+      const container = document.getElementById('toastContainer');
+      const dot = document.getElementById('toastDot');
+      const text = document.getElementById('toastText');
+
+      text.textContent = message;
+      dot.className = 'w-2.5 h-2.5 rounded-full ' +
+        (color === 'red' ? 'bg-apple-red' : color === 'orange' ? 'bg-apple-orange' : 'bg-apple-green');
+
+      container.classList.remove('opacity-0', 'translate-y-4');
+      container.classList.add('opacity-100', 'translate-y-0');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        container.classList.add('opacity-0', 'translate-y-4');
+        container.classList.remove('opacity-100', 'translate-y-0');
+      }, 3600);
+    }
+
+    function copyTextToClipboard(text, successMsg) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => showToast(successMsg, 'green')).catch(() => fallbackCopy(text, successMsg));
+      } else {
+        fallbackCopy(text, successMsg);
+      }
+    }
+
+    function fallbackCopy(text, successMsg) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast(successMsg, 'green');
+      } catch (e) {}
+      document.body.removeChild(ta);
+    }
+
+    // 14. Wire All UI Event Listeners
+    document.getElementById('navHomeLogoBtn').addEventListener('click', () => switchView('home'));
+    document.getElementById('navSubjectsBtn').addEventListener('click', () => switchView('home'));
+    document.getElementById('navResultsBtn').addEventListener('click', () => switchView('results'));
+    document.getElementById('navTemplateBtn').addEventListener('click', () => switchView('template'));
+    document.getElementById('backToHomeBtn').addEventListener('click', () => switchView('home'));
+
+    // Theme Toggle
+    document.getElementById('themeToggleBtn').addEventListener('click', () => {
+      const htmlEl = document.documentElement;
+      const isDark = htmlEl.classList.toggle('dark');
+      document.getElementById('themeSunIcon').classList.toggle('hidden', !isDark);
+      document.getElementById('themeMoonIcon').classList.toggle('hidden', isDark);
+    });
+
+    // File Upload Listeners
+    document.getElementById('quickGlobalJsonUpload').addEventListener('change', (e) => {
+      handleJsonFilesUpload(e.target.files, null);
+      e.target.value = '';
+    });
+    document.getElementById('subjectJsonUploadInput').addEventListener('change', (e) => {
+      const subj = SUBJECTS.find(s => s.id === state.activeSubjectId) || SUBJECTS[0];
+      handleJsonFilesUpload(e.target.files, subj.folder);
+      e.target.value = '';
+    });
+
+    // Clear Subject Results
+    document.getElementById('clearSubjectResultsBtn').addEventListener('click', () => {
+      const subj = SUBJECTS.find(s => s.id === state.activeSubjectId);
+      if (subj && state.savedResults[subj.folder]) {
+        delete state.savedResults[subj.folder];
+        safeSetStorage('chem_apple_saved_results_v1', state.savedResults);
+        renderSubjectView();
+        showToast('تم مسح سجل نتائج هذه المادة', 'orange');
+      }
+    });
+
+    document.getElementById('clearAllSavedResultsBtn').addEventListener('click', () => {
+      state.savedResults = {};
+      safeSetStorage('chem_apple_saved_results_v1', {});
+      renderResultsDashboardView();
+      showToast('تم تصفير جميع السجلات المحفوظة', 'orange');
+    });
+
+    // Quiz Navigation & Timer Listeners
+    document.getElementById('exitQuizBtn').addEventListener('click', () => {
+      openSubjectView(state.activeSubjectId);
+    });
+
+    document.getElementById('prevQuestionBtn').addEventListener('click', () => {
+      if (state.quiz.currentIndex > 0) {
+        saveCurrentScratchpadSnapshot();
+        state.quiz.currentIndex--;
+        renderQuizQuestion();
+        restoreScratchpadSnapshot();
+      }
+    });
+
+    document.getElementById('nextQuestionBtn').addEventListener('click', () => {
+      if (state.quiz.currentIndex < state.quiz.questions.length - 1) {
+        saveCurrentScratchpadSnapshot();
+        state.quiz.currentIndex++;
+        renderQuizQuestion();
+        restoreScratchpadSnapshot();
+      }
+    });
+
+    document.getElementById('finishQuizSummaryBtn').addEventListener('click', () => {
+      showQuizSummaryCard();
+    });
+
+    document.getElementById('toggleTimerModeBtn').addEventListener('click', () => {
+      if (state.quiz.timerEnabled) {
+        stopQuizTimer();
+        state.quiz.timerEnabled = false;
+        document.getElementById('activeTimerDisplayBox').classList.add('hidden');
+        document.getElementById('timerConfigBox').classList.add('hidden');
+        document.getElementById('timerToggleBtnLabel').textContent = 'تفعيل الوقت';
+        showToast('تم إيقاف المؤقت — الاختبار الآن بدون وقت', 'orange');
+      } else {
+        const cfg = document.getElementById('timerConfigBox');
+        cfg.classList.toggle('hidden');
+      }
+    });
+
+    document.getElementById('startCustomTimerBtn').addEventListener('click', () => {
+      const mins = document.getElementById('timerMinutesInput').value;
+      startCountdownTimer(mins);
+      showToast(`بدأ العد التنازلي لمدة ${mins} دقيقة`, 'green');
+    });
+
+    document.getElementById('toggleScratchpadManualBtn').addEventListener('click', () => {
+      const sec = document.getElementById('scratchpadSection');
+      sec.classList.toggle('hidden');
+      if (!sec.classList.contains('hidden')) {
+        setTimeout(resizeScratchCanvas, 50);
+      }
+    });
+
+    document.getElementById('saveQuizResultManualBtn').addEventListener('click', () => {
+      saveManualQuizResult();
+    });
+
+    document.getElementById('retryQuizFromSummaryBtn').addEventListener('click', () => {
+      startQuiz(state.activeSubjectId, state.activeTopicKey);
+    });
+
+    document.getElementById('backToSubjectFromSummaryBtn').addEventListener('click', () => {
+      openSubjectView(state.activeSubjectId);
+    });
+
+    // Scratchpad Tool Controls
+    document.querySelectorAll('.scratch-tool-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        scratchState.tool = btn.getAttribute('data-tool');
+        document.querySelectorAll('.scratch-tool-btn').forEach(b => {
+          b.className = 'scratch-tool-btn px-3 py-1.5 rounded-xl text-xs font-extrabold hover:bg-black/5 dark:hover:bg-white/10 transition-all';
+        });
+        btn.className = 'scratch-tool-btn px-3 py-1.5 rounded-xl text-xs font-extrabold bg-apple-blue text-white transition-all';
+      });
+    });
+
+    document.querySelectorAll('.scratch-color-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        scratchState.color = btn.getAttribute('data-color');
+        if (scratchState.tool === 'eraser') {
+          scratchState.tool = 'pen';
+          document.querySelector('[data-tool="pen"]').click();
+        }
+        document.querySelectorAll('.scratch-color-btn').forEach(b => b.classList.remove('ring-2', 'ring-apple-blue'));
+        btn.classList.add('ring-2', 'ring-apple-blue');
+      });
+    });
+
+    document.getElementById('scratchLineWidth').addEventListener('input', (e) => {
+      scratchState.lineWidth = Number(e.target.value);
+      document.getElementById('scratchLineWidthVal').textContent = scratchState.lineWidth + 'px';
+    });
+
+    document.getElementById('scratchBgSelect').addEventListener('change', (e) => {
+      const wrapper = document.getElementById('scratchCanvasWrapper');
+      wrapper.classList.remove('canvas-grid', 'canvas-lined', 'canvas-plain');
+      wrapper.classList.add('canvas-' + e.target.value);
+    });
+
+    document.getElementById('scratchUndoBtn').addEventListener('click', () => {
+      if (scratchState.history.length === 0) return;
+      const lastUrl = scratchState.history.pop();
+      clearScratchCanvas(false);
+      const wrapper = document.getElementById('scratchCanvasWrapper');
+      const img = new Image();
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0, wrapper.clientWidth, wrapper.clientHeight);
+      };
+      img.src = lastUrl;
+    });
+
+    document.getElementById('scratchClearBtn').addEventListener('click', () => {
+      clearScratchCanvas(true);
+    });
+
+    // Template & AI Prompt Copy / Download
+    document.getElementById('jsonTemplatePre').textContent = TEMPLATE_JSON_STRING;
+
+    document.getElementById('copyAiPromptBtn').addEventListener('click', () => {
+      const promptText = document.getElementById('aiPromptPre').textContent;
+      copyTextToClipboard(promptText, 'تم نسخ البرومبت الذكي إلى الحافظة!');
+    });
+
+    document.getElementById('copyJsonTemplateBtn').addEventListener('click', () => {
+      copyTextToClipboard(TEMPLATE_JSON_STRING, 'تم نسخ كود نموذج JSON إلى الحافظة!');
+    });
+
+    document.getElementById('downloadJsonTemplateBtn').addEventListener('click', () => {
+      const blob = new Blob([TEMPLATE_JSON_STRING], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'TOPIC_TEMPLATE.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('تم تحميل ملف TOPIC_TEMPLATE.json', 'green');
+    });
+
+    // GitHub Modal
+    document.getElementById('navGithubBtn').addEventListener('click', () => {
+      const cfg = safeGetStorage('chem_apple_gh_config', {});
+      document.getElementById('ghOwnerInput').value = cfg.owner || '';
+      document.getElementById('ghRepoInput').value = cfg.repo || '';
+      document.getElementById('ghBranchInput').value = cfg.branch || 'main';
+      document.getElementById('githubModal').classList.remove('hidden');
+    });
+    document.getElementById('closeGithubModalBtn').addEventListener('click', () => {
+      document.getElementById('githubModal').classList.add('hidden');
+    });
+    document.getElementById('syncGithubNowBtn').addEventListener('click', async () => {
+      const owner = document.getElementById('ghOwnerInput').value.trim();
+      const repo = document.getElementById('ghRepoInput').value.trim();
+      const branch = document.getElementById('ghBranchInput').value.trim() || 'main';
+      safeSetStorage('chem_apple_gh_config', { owner, repo, branch });
+      document.getElementById('githubModal').classList.add('hidden');
+      if (owner && repo) {
+        await fetchTopicsFromGitHubApi(owner, repo, branch, true);
+      } else {
+        showToast('تم حفظ الإعدادات', 'green');
+      }
+    });
+
+    // Initialize App on Load
+    window.addEventListener('DOMContentLoaded', () => {
+      initTopicsStore();
+      renderHomeView();
+      autoDiscoverFromGitHubOrManifest();
+    });
+  </script>
+</body>
+</html>

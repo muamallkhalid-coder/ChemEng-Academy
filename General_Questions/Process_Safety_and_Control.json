@@ -1,0 +1,38 @@
+{
+  "topic_en": "Process Control & Plant Safety",
+  "topic_ar": "السيطرة على العمليات والسلامة الصناعية",
+  "subject_folder": "General_Questions",
+  "description_ar": "متحكمات PID، صمامات الأمان، ودراسات المخاطر HAZOP في المصانع الكيمياوية",
+  "questions": [
+    {
+      "id": 1,
+      "question_en": "In a PID feedback controller, what is the primary purpose of the Integral (I) action?",
+      "question_ar": "في مسيطر التغذية العكسية (PID Controller)، ما هي الوظيفة الأساسية لفعل التكامل (Integral Action)؟",
+      "options": [
+        "To eliminate steady-state offset (error)",
+        "To increase steady-state offset",
+        "To measure process temperature directly",
+        "To act only when the error is zero"
+      ],
+      "correct_index": 0,
+      "explanation_en": "Proportional-only control leaves a residual steady-state error (offset). The integral mode integrates error over time and continues adjusting the output until steady-state offset is completely eliminated.",
+      "explanation_ar": "يعمل جزء التكامل (I) على جمع الخطأ بمرور الزمن وتعديل إشارة السيطرة حتى يتم القضاء تماماً على الفرق الدائم (Offset) عند الحالة المستقرة.",
+      "requires_scratchpad": false
+    },
+    {
+      "id": 2,
+      "question_en": "A spring-loaded Pressure Safety Valve (PSV) is set to open at 15 bar gauge. If the atmospheric pressure is 1.013 bar, what is the absolute opening pressure?",
+      "question_ar": "صمام أمان ضغطي (PSV) مضبوط ليفتح عند ضغط مقياسي (Gauge) مقداره 15 بار. إذا كان الضغط الجوي هو 1.013 بار، فما هو الضغط المطلق لفتح الصمام؟",
+      "options": [
+        "16.013 bar abs",
+        "13.987 bar abs",
+        "15.000 bar abs",
+        "1.013 bar abs"
+      ],
+      "correct_index": 0,
+      "explanation_en": "P_abs = P_gauge + P_atm = 15 + 1.013 = 16.013 bar abs.",
+      "explanation_ar": "الضغط المطلق يساوي الضغط المقياسي مضافاً إليه الضغط الجوي: 15 + 1.013 = 16.013 بار مطلق.",
+      "requires_scratchpad": true
+    }
+  ]
+}

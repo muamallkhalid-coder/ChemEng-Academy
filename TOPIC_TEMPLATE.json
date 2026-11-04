@@ -1,0 +1,23 @@
+{
+  "topic_en": "Density & Specific Gravity",
+  "topic_ar": "الكثافة والوزن النوعي",
+  "subject_folder": "Principles_of_Chemical_Engineering",
+  "description_ar": "وصف مختصر للموضوع يظهر تحت عنوان البطاقة",
+  "questions": [
+    {
+      "id": 1,
+      "question_en": "Write the full question in English here?",
+      "question_ar": "اكتب ترجمة السؤال الكاملة باللغة العربية هنا؟",
+      "options": [
+        "Option A in English only",
+        "Option B in English only",
+        "Option C in English only",
+        "Option D in English only"
+      ],
+      "correct_index": 0,
+      "explanation_en": "Detailed explanation in English explaining why the correct option is right.",
+      "explanation_ar": "شرح مفصل باللغة العربية يوضح لماذا هذا الخيار هو الصحيح مع خطوات الحل.",
+      "requires_scratchpad": true
+    }
+  ]
+}

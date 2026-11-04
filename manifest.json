@@ -1,0 +1,29 @@
+{
+  "subjects": {
+    "Principles_of_Chemical_Engineering": [
+      "Density.json",
+      "Material_Balance.json"
+    ],
+    "Fluid_Mechanics": [
+      "Reynolds_Number.json"
+    ],
+    "Thermodynamics": [
+      "First_Law.json"
+    ],
+    "Heat_Transfer": [
+      "Conduction_and_Convection.json"
+    ],
+    "Mass_Transfer": [
+      "Diffusion_and_Distillation.json"
+    ],
+    "Chemical_Reaction_Engineering": [
+      "Reactor_Design.json"
+    ],
+    "General_Questions": [
+      "Process_Safety_and_Control.json"
+    ],
+    "English_Language": [
+      "Technical_English.json"
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "topic_en": "Reynolds Number & Flow Regimes",
+  "topic_ar": "رقم رينولدز وأنظمة الجريان",
+  "subject_folder": "Fluid_Mechanics",
+  "description_ar": "تحديد نوع الجريان (طباقي أو مضطرب) وحسابات رقم رينولدز في الأنابيب",
+  "questions": [
+    {
+      "id": 1,
+      "question_en": "A fluid with density 900 kg/m³ and dynamic viscosity 0.003 Pa·s flows through a pipe of inner diameter 0.05 m at an average velocity of 0.4 m/s. Calculate the Reynolds number.",
+      "question_ar": "يجري مائع كثافته 900 كغم/م³ ولزوجته الديناميكية 0.003 باسكال.ثانية داخل أنبوب قطره الداخلي 0.05 متر وبسرعة متوسطة 0.4 م/ثا. احسب رقم رينولدز (Re).",
+      "options": [
+        "6000",
+        "1800",
+        "12000",
+        "600"
+      ],
+      "correct_index": 0,
+      "explanation_en": "Re = (ρ × v × D) / μ = (900 × 0.4 × 0.05) / 0.003 = 18 / 0.003 = 6000.",
+      "explanation_ar": "بتطبيق قانون رقم رينولدز Re = (ρ × v × D) / μ نحصل على: (900 × 0.4 × 0.05) / 0.003 = 18 / 0.003 = 6000.",
+      "requires_scratchpad": true
+    },
+    {
+      "id": 2,
+      "question_en": "For flow inside a circular pipe, the flow is guaranteed to be laminar when the Reynolds number is less than:",
+      "question_ar": "بالنسبة للجريان داخل أنبوب دائري، يكون الجريان طباقياً (Laminar) عندما يكون رقم رينولدز أقل من:",
+      "options": [
+        "2100",
+        "4000",
+        "10000",
+        "50000"
+      ],
+      "correct_index": 0,
+      "explanation_en": "In circular pipes, flow is laminar for Re < 2100, transitional between 2100 and 4000, and fully turbulent above 4000.",
+      "explanation_ar": "في الأنابيب الدائرية، يصنف الجريان كجريان طباقي عندما يكون رقم رينولدز أقل من 2100، وانتقالي بين 2100 و 4000، ومضطرب فوق 4000.",
+      "requires_scratchpad": false
+    },
+    {
+      "id": 3,
+      "question_en": "For fully developed laminar flow of a Newtonian fluid in a circular pipe, what is the ratio of average velocity to maximum centerline velocity (v_avg / v_max)?",
+      "question_ar": "في الجريان الطباقي المكتمل لمائع نيوتوني داخل أنبوب دائري، ما هي نسبة السرعة المتوسطة إلى السرعة القصوى في مركز الأنبوب؟",
+      "options": [
+        "0.50",
+        "0.82",
+        "1.00",
+        "0.25"
+      ],
+      "correct_index": 0,
+      "explanation_en": "From the Hagen-Poiseuille parabolic velocity profile, the average velocity is exactly half the maximum velocity at the center of the pipe (v_avg / v_max = 0.5).",
+      "explanation_ar": "من توزيع السرعة القطعي المكافئ (معادلة هاجن-بوازوي) للجريان الطباقي، تكون السرعة المتوسطة مساوية تماماً لنصف السرعة العظمى عند المركز (0.5).",
+      "requires_scratchpad": false
+    }
+  ]
+}

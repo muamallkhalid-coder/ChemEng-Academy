@@ -1,0 +1,38 @@
+{
+  "topic_en": "Technical Vocabulary & Grammar",
+  "topic_ar": "المصطلحات الهندسية والقواعد اللغوية",
+  "subject_folder": "English_Language",
+  "description_ar": "اختبارات القواعد والمفردات التقنية الخاصة بطلبة الهندسة الكيمياوية",
+  "questions": [
+    {
+      "id": 1,
+      "question_en": "Choose the correct verb form: 'Neither the pressure gauges nor the main control valve _______ functioning properly during yesterday's inspection.'",
+      "question_ar": "اختر صيغة الفعل الصحيحة لإكمال الجملة: 'لم تكن مقاييس الضغط ولا صمام التحكم الرئيسي يعمل بشكل صحيح خلال فحص الأمس.'",
+      "options": [
+        "was",
+        "were",
+        "are",
+        "have been"
+      ],
+      "correct_index": 0,
+      "explanation_en": "With 'neither... nor', the verb agrees with the closer subject ('the main control valve', which is singular), and 'yesterday's inspection' requires the past tense, so 'was' is correct.",
+      "explanation_ar": "عند استخدام قاعدة Neither... nor يتبع الفعل الفاعل الأقرب إليه وهو هنا مفرد (the main control valve)، وبما أن الجملة في الماضي (yesterday) نختار was.",
+      "requires_scratchpad": false
+    },
+    {
+      "id": 2,
+      "question_en": "In chemical engineering terminology, a process that releases heat to its surroundings is called:",
+      "question_ar": "في مصطلحات الهندسة الكيمياوية، تسمى العملية التي تبعث حرارة إلى المحيط الخارجي بـ:",
+      "options": [
+        "Exothermic",
+        "Endothermic",
+        "Adiabatic",
+        "Isobaric"
+      ],
+      "correct_index": 0,
+      "explanation_en": "'Exothermic' means releasing heat (ΔH < 0), whereas 'endothermic' means absorbing heat, 'adiabatic' means no heat transfer, and 'isobaric' means constant pressure.",
+      "explanation_ar": "كلمة Exothermic تعني باعث للحرارة، بينما Endothermic تعني ماص للحرارة، و Adiabatic تعني معزول حرارياً، و Isobaric تعني بثبوت الضغط.",
+      "requires_scratchpad": false
+    }
+  ]
+}

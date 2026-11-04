@@ -1,0 +1,38 @@
+{
+  "topic_en": "Ideal Reactors & Kinetics",
+  "topic_ar": "تصميم المفاعلات المثالية وحركية التفاعلات",
+  "subject_folder": "Chemical_Reaction_Engineering",
+  "description_ar": "مقارنة مفاعلات CSTR و PFR وحساب زمن الاستبقاء وحجم المفاعل",
+  "questions": [
+    {
+      "id": 1,
+      "question_en": "A liquid-phase first-order reaction A → B with rate constant k = 0.2 min⁻¹ takes place in an isothermal CSTR. If the volumetric flow rate is 10 L/min and the desired conversion X_A is 80% (0.8), what reactor volume V is required?",
+      "question_ar": "يجري تفاعل من المرتبة الأولى في الطور السائل A → B بثابت سرعة k = 0.2 دقيقة⁻¹ داخل مفاعل خلط مستمر (CSTR) بثبوت درجة الحرارة. إذا كان معدل الجريان الحجمي 10 لتر/دقيقة ونسبة التحول المطلوبة 80%، فما هو حجم المفاعل المطلوب؟",
+      "options": [
+        "200 L",
+        "40 L",
+        "80 L",
+        "160 L"
+      ],
+      "correct_index": 0,
+      "explanation_en": "For a first-order liquid-phase reaction in a CSTR: τ = V / v₀ = X_A / (k × (1 - X_A)). Thus, τ = 0.8 / (0.2 × (1 - 0.8)) = 0.8 / 0.04 = 20 min. Volume V = τ × v₀ = 20 min × 10 L/min = 200 L.",
+      "explanation_ar": "في مفاعل CSTR لتفاعل من المرتبة الأولى: زمن المكوث τ = X / (k(1-X)) = 0.8 / (0.2 × 0.2) = 20 دقيقة. الحجم V = τ × v₀ = 20 × 10 = 200 لتر.",
+      "requires_scratchpad": true
+    },
+    {
+      "id": 2,
+      "question_en": "For an isothermal positive-order reaction (n > 0), which ideal continuous reactor requires a smaller volume to achieve the same conversion under identical feed conditions?",
+      "question_ar": "لتفاعل ذي مرتبة موجبة (n > 0) عند ثبوت درجة الحرارة، أي مفاعل مستمر مثالي يتطلب حجماً أصغر لتحقيق نفس نسبة التحول تحت نفس ظروف التغذية؟",
+      "options": [
+        "Plug Flow Reactor (PFR)",
+        "Continuous Stirred-Tank Reactor (CSTR)",
+        "Both require the exact same volume",
+        "Recycle CSTR with infinite recycle ratio"
+      ],
+      "correct_index": 0,
+      "explanation_en": "For positive reaction orders, the reaction rate decreases as conversion increases. Because a CSTR operates entirely at the lowest exit concentration while a PFR gradually decreases concentration along its length, the PFR always requires a smaller volume.",
+      "explanation_ar": "في التفاعلات ذات الرتب الموجبة تقل سرعة التفاعل مع استهلاك المادة المتفاعلة. ولأن مفاعل CSTR يعمل بالكامل عند التركيز النهائي المنخفض بينما يتدرج التركيز في PFR، فإن PFR يحتاج دائماً إلى حجم أصغر.",
+      "requires_scratchpad": false
+    }
+  ]
+}

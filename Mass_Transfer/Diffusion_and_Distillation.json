@@ -1,0 +1,38 @@
+{
+  "topic_en": "Molecular Diffusion & Distillation",
+  "topic_ar": "الانتشار الجزيئي والتقطير",
+  "subject_folder": "Mass_Transfer",
+  "description_ar": "قانون فيك الأول، رقم شميدت، وطريقة مكيب-ثيل في أبراج التقطير",
+  "questions": [
+    {
+      "id": 1,
+      "question_en": "The Schmidt number (Sc) used in mass transfer correlations is defined as:",
+      "question_ar": "يُعرّف رقم شميدت (Schmidt Number) المستخدم في علاقات انتقال الكتلة بأنه:",
+      "options": [
+        "ν / D_AB (Momentum diffusivity / Mass diffusivity)",
+        "α / D_AB (Thermal diffusivity / Mass diffusivity)",
+        "k_c · L / D_AB",
+        "v · L / D_AB"
+      ],
+      "correct_index": 0,
+      "explanation_en": "The Schmidt number (Sc = μ / (ρ · D_AB) = ν / D_AB) is the mass-transfer analog of the Prandtl number, comparing momentum diffusivity to mass diffusivity.",
+      "explanation_ar": "رقم شميدت يساوي النسبة بين الانتشارية الحركية (اللزوجة الكينماتيكية ν) والانتشارية الجزيئية للكتلة D_AB، وهو النظير لرقم براندتل في انتقال الحرارة.",
+      "requires_scratchpad": false
+    },
+    {
+      "id": 2,
+      "question_en": "In the McCabe-Thiele graphical method for binary distillation, if the feed enters as a saturated liquid at its bubble point, what is the value of the feed thermal quality (q) and the slope of the q-line?",
+      "question_ar": "في طريقة مكيب-ثيل البيانية للتقطير الثنائي، إذا دخل المغذي كسائل مشبع عند نقطة الفقاعة (Bubble Point)، فما هي قيمة معامل الحالة الحرارية (q) وميل خط الـ q-line؟",
+      "options": [
+        "q = 1, slope = ∞ (vertical line)",
+        "q = 0, slope = 0 (horizontal line)",
+        "q = 0.5, slope = -1",
+        "q = 1, slope = 0"
+      ],
+      "correct_index": 0,
+      "explanation_en": "For a saturated liquid feed, q = 1. The slope of the q-line is q / (q - 1) = 1 / 0 = ∞, which means the q-line is a vertical line on the x-y diagram.",
+      "explanation_ar": "للسائل المشبع تكون قيمة q = 1، وبما أن ميل خط المغذي هو q / (q - 1) فإن الميل يصبح مالانهاية أي خطاً عمودياً تماماً.",
+      "requires_scratchpad": true
+    }
+  ]
+}

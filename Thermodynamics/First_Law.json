@@ -1,0 +1,38 @@
+{
+  "topic_en": "First Law of Thermodynamics",
+  "topic_ar": "القانون الأول للثرموداينمك",
+  "subject_folder": "Thermodynamics",
+  "description_ar": "الطاقة الداخلية، الإنثالبي، الشغل والحرارة في الأنظمة المغلقة والمفتوحة",
+  "questions": [
+    {
+      "id": 1,
+      "question_en": "A closed piston-cylinder system absorbs 500 J of heat from its surroundings while the gas expands and does 320 J of work on the piston. What is the change in internal energy (ΔU) of the system?",
+      "question_ar": "يمتص نظام مغلق (مكبس وأسطوانة) حرارة مقدارها 500 جول من المحيط بينما يتمدد الغاز وينجز شغلاً مقداره 320 جول على المكبس. ما هو التغير في الطاقة الداخلية (ΔU) للنظام؟",
+      "options": [
+        "+180 J",
+        "+820 J",
+        "-180 J",
+        "-820 J"
+      ],
+      "correct_index": 0,
+      "explanation_en": "By the First Law for a closed system: ΔU = Q - W (where W is work done by the system). Thus, ΔU = 500 J - 320 J = +180 J.",
+      "explanation_ar": "حسب القانون الأول للنظام المغلق: التغير في الطاقة الداخلية يساوي الحرارة المضافة ناقصاً الشغل المنجز بواسطة النظام: ΔU = 500 - 320 = +180 جول.",
+      "requires_scratchpad": true
+    },
+    {
+      "id": 2,
+      "question_en": "During a throttling process across an insulated valve (isenthalpic expansion), which thermodynamic property remains constant between inlet and outlet?",
+      "question_ar": "خلال عملية الخنق (Throttling) عبر صمام معزول حرارياً، أي خاصية ثرموديناميكية تبقى ثابتة بين المدخل والمخرج؟",
+      "options": [
+        "Enthalpy (H)",
+        "Pressure (P)",
+        "Entropy (S)",
+        "Internal Energy (U)"
+      ],
+      "correct_index": 0,
+      "explanation_en": "From the steady-flow energy balance with Q = 0, W_s = 0, and negligible kinetic/potential energy changes, ΔH = 0, meaning enthalpy remains constant (H₁ = H₂).",
+      "explanation_ar": "في صمام الخنق المعزول لا توجد حرارة منتقلة ولا شغل محور، وبإهمال تغيرات الطاقة الحركية والكامنة تصبح معادلة الطاقة ΔH = 0 أي أن الإنثالبي يبقى ثابتاً.",
+      "requires_scratchpad": false
+    }
+  ]
+}

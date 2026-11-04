@@ -1,0 +1,38 @@
+{
+  "topic_en": "Conduction & Heat Exchangers",
+  "topic_ar": "التوصيل الحراري والمبادلات الحرارية",
+  "subject_folder": "Heat_Transfer",
+  "description_ar": "قانون فوريير للتوصيل، قانون نيوتن للتبريد، وفرق درجات الحرارة اللوغاريتمي LMTD",
+  "questions": [
+    {
+      "id": 1,
+      "question_en": "A plane wall of thickness 0.2 m and thermal conductivity k = 1.5 W/(m·K) has surface temperatures of 120°C and 40°C. What is the steady-state heat flux (q/A) through the wall?",
+      "question_ar": "جدار مستوٍ سمكه 0.2 متر ومعامل توصيله الحراري 1.5 واط/(م.كلفن)، ودرجتا حرارة سطحيه 120°C و 40°C. ما هو الفيض الحراري (Heat Flux) المار عبر الجدار في الحالة المستقرة؟",
+      "options": [
+        "600 W/m²",
+        "120 W/m²",
+        "400 W/m²",
+        "24 W/m²"
+      ],
+      "correct_index": 0,
+      "explanation_en": "By Fourier's Law: q/A = k × (T₁ - T₂) / L = 1.5 × (120 - 40) / 0.2 = 1.5 × 80 / 0.2 = 600 W/m².",
+      "explanation_ar": "حسب قانون فوريير للتوصيل الحراري: الفيض الحراري q/A = k × ΔT / L = 1.5 × (120 - 40) / 0.2 = 600 واط/م².",
+      "requires_scratchpad": true
+    },
+    {
+      "id": 2,
+      "question_en": "Which dimensionless number represents the ratio of convective heat transfer to conductive heat transfer across a fluid boundary?",
+      "question_ar": "أي رقم لابعادي يمثل نسبة انتقال الحرارة بالحمل إلى انتقال الحرارة بالتوصيل عبر الطبقة المتاخمة للمائع؟",
+      "options": [
+        "Nusselt Number (Nu)",
+        "Prandtl Number (Pr)",
+        "Biot Number (Bi)",
+        "Fourier Number (Fo)"
+      ],
+      "correct_index": 0,
+      "explanation_en": "The Nusselt number (Nu = h·L / k_fluid) is the ratio of convective to conductive heat transfer within the fluid.",
+      "explanation_ar": "رقم نوسلت (Nusselt Number) ويعرف بالعلاقة Nu = hL/k_f يمثل نسبة انتقال الحرارة بالحمل إلى انتقالها بالتوصيل داخل المائع نفسه.",
+      "requires_scratchpad": false
+    }
+  ]
+}

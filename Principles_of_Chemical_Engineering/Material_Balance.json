@@ -1,0 +1,53 @@
+{
+  "topic_en": "Material Balance Without Reaction",
+  "topic_ar": "موازنة المادة بدون تفاعل كيمياوي",
+  "subject_folder": "Principles_of_Chemical_Engineering",
+  "description_ar": "موازنة الوحدات الصناعية، التقطير، التجفيف، وتيارات الرجوع (Recycle & Bypass)",
+  "questions": [
+    {
+      "id": 1,
+      "question_en": "A binary distillation column receives 1000 kg/h of a feed containing 40 wt% benzene and 60 wt% toluene. If the distillate flow rate is 420 kg/h containing 90 wt% benzene, what is the mass of benzene in the bottoms stream?",
+      "question_ar": "يدخل إلى برج تقطير ثنائي مغذي بمعدل 1000 كغم/ساعة يحتوي على 40% وزناً بنزين و 60% تولوين. إذا كان معدل جريان المقطرات العلوية (Distillate) هو 420 كغم/ساعة بتركيز 90% بنزين، فما هي كتلة البنزين في التيار السفلي (Bottoms)؟",
+      "options": [
+        "22 kg/h",
+        "378 kg/h",
+        "42 kg/h",
+        "580 kg/h"
+      ],
+      "correct_index": 0,
+      "explanation_en": "Benzene in feed = 1000 × 0.40 = 400 kg/h. Benzene in distillate = 420 × 0.90 = 378 kg/h. By benzene balance: Benzene in bottoms = 400 - 378 = 22 kg/h.",
+      "explanation_ar": "كتلة البنزين الداخلة في المغذي = 1000 × 0.40 = 400 كغم/ساعة. كتلة البنزين الخارجة في الأعلى = 420 × 0.90 = 378 كغم/ساعة. من موازنة البنزين: المتبقي في الأسفل = 400 - 378 = 22 كغم/ساعة.",
+      "requires_scratchpad": true
+    },
+    {
+      "id": 2,
+      "question_en": "In a steady-state system without chemical reaction, the general conservation of mass equation simplifies to:",
+      "question_ar": "في نظام بحالة مستقرة (Steady-State) وبدون تفاعل كيمياوي، تتبسط معادلة حفظ الكتلة العامة إلى:",
+      "options": [
+        "Accumulation = Input - Output",
+        "Input = Output",
+        "Input + Generation = Output",
+        "Generation = Consumption"
+      ],
+      "correct_index": 1,
+      "explanation_en": "At steady state, Accumulation = 0. Without reaction on total mass (or conserved species), Generation = Consumption = 0. Therefore, Input = Output.",
+      "explanation_ar": "في الحالة المستقرة يكون التراكم (Accumulation) صفراً، وبدون تفاعل كيمياوي يكون التوليد والاستهلاك صفراً، وبالتالي فإن الداخل يساوي الخارج (Input = Output).",
+      "requires_scratchpad": false
+    },
+    {
+      "id": 3,
+      "question_en": "Why is a purge stream necessary in a recycle loop when an inert component enters with the fresh feed?",
+      "question_ar": "لماذا يعتبر تيار التصريف (Purge Stream) ضرورياً في منظومة إعادة التدوير (Recycle Loop) عند وجود مادة خاملة تدخل مع المغذي الجديد؟",
+      "options": [
+        "To increase reactor temperature",
+        "To prevent continuous buildup (accumulation) of inerts in the system",
+        "To eliminate the need for a separator",
+        "To convert inerts into valuable products"
+      ],
+      "correct_index": 1,
+      "explanation_en": "Without a purge stream, inert substances entering with the fresh feed would remain trapped in the recycle loop and accumulate indefinitely, preventing steady-state operation.",
+      "explanation_ar": "بدون تيار التصريف (Purge)، ستبقى الغازات أو المواد الخاملة محصورة داخل حلقة الـ Recycle وتتراكم باستمرار مما يمنع وصول العملية إلى حالة الاستقرار.",
+      "requires_scratchpad": false
+    }
+  ]
+}
